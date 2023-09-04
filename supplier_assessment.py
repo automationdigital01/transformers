@@ -71,11 +71,11 @@ def main():
                 sentiment=sent_analysis(summary)
                             
                         
-                dataframe_data.append({
-                        "Supplier Name" : options,
-                        "News" : summary,
-                        "Result" : sentiment
-                        })
+            dataframe_data.append({
+                    "Supplier Name" : options,
+                    "News" : summary,
+                    "Result" : sentiment
+                    })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
