@@ -75,7 +75,7 @@ def main():
                     "Result" : sentiment
                 })
 
-        df= pd.Dataframe(dataframe_data)
+        df= pd.DataFrame(dataframe_data)
         st.dataframe(df[["Supplier Name","News","Result"]])
         csv = df.to_csv().encode('utf-8')
 
