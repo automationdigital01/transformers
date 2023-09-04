@@ -69,13 +69,17 @@ def main():
                 text= web_scraping(link)
                 summary=summarize(text)
                 sentiment=sent_analysis(summary)
-                dataframe_data.append({
+            summary.append(summary)
+            sentiment.append(sentiment)
+                
+                      
+            dataframe_data.append({
                     "Supplier Name" : options,
                     "News" : summary,
                     "Result" : sentiment
                 })
 
-        df= pd.DataFrame(dataframe_data)
+        df= pd.Dataframe(dataframe_data)
         st.dataframe(df[["Supplier Name","News","Result"]])
         csv = df.to_csv().encode('utf-8')
 
