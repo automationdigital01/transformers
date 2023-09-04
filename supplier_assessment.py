@@ -72,9 +72,9 @@ def main():
                             
                         
                 dataframe_data.append({
-                        "Supplier Name" : options.remove,
+                        "Supplier Name" : options,
                         "News" : summary,
-                        "Result" : sentiment.label
+                        "Result" : sentiment
                         })
 
         df= pd.DataFrame(dataframe_data)
