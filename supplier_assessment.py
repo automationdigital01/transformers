@@ -80,7 +80,7 @@ def main():
                 })
 
         df= pd.DataFrame(dataframe_data)
-        st.dataframe(df[["Supplier Name","News","Result"]])
+        st.dataframe(df)
         csv = df.to_csv().encode('utf-8')
 
         st.download_button(label="Download data as CSV",
