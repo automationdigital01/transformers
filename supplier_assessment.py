@@ -56,29 +56,26 @@ def main():
                            'Larsen & Toubro Limited'])
     if st.button("Submit"):
         st.write("Selected Suppliers:", options)
-        if 'Halliburton Company' in options :
-            '''web_links=['https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite',
+        if options =='Halliburton Company':
+            web_links=['https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite',
                     'https://www.investors.com/research/ibd-stock-analysis/energy-stock-named-top-pick-analysts-see-34-percent-upside-for-halliburton/',
                     'https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services',
                     'https://www.thecoinrepublic.com/2023/08/21/hal-stock-halliburton-has-bullish-or-bearish-outlook-for-2023/',
                     'https://www.investopedia.com/halliburton-warns-of-us-drilling-slowdown-7563102',
-                    'https://www.reuters.com/business/energy/halliburton-beats-second-quarter-profit-estimates-2023-07-19/']'''
-            #for link in web_links:
-            st.write("hello")
-            link='https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite'
-            st.write(link)
-            text= web_scraping(link)
-            st.write(text)
-            summary=summarize(text)
-            st.write(summary)
-            sentiment=sent_analysis(summary)
-            st.write(sentiment)              
-                      
-            dataframe_data.append({
-                    "Supplier Name" : options,
-                    "News" : summary,
-                    "Result" : sentiment
-                    })
+                    'https://www.reuters.com/business/energy/halliburton-beats-second-quarter-profit-estimates-2023-07-19/']
+            for link in web_links:
+                link='https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite'
+                
+                text= web_scraping(link)
+                summary=summarize(text)
+                sentiment=sent_analysis(summary)
+                            
+                        
+                dataframe_data.append({
+                        "Supplier Name" : options.remove,
+                        "News" : summary,
+                        "Result" : sentiment.label
+                        })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
