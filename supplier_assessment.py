@@ -67,10 +67,13 @@ def main():
                     'https://www.reuters.com/business/energy/halliburton-beats-second-quarter-profit-estimates-2023-07-19/']'''
             #for link in web_links:
             link='https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite'
+            st.write(link)
             text= web_scraping(link)
+            st.write(text)
             summary=summarize(text)
+            st.write(summary)
             sentiment=sent_analysis(summary)
-                          
+            st.write(sentiment)              
                       
             dataframe_data.append({
                     "Supplier Name" : options,
