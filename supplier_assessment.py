@@ -64,6 +64,7 @@ def main():
                     'https://www.investopedia.com/halliburton-warns-of-us-drilling-slowdown-7563102',
                     'https://www.reuters.com/business/energy/halliburton-beats-second-quarter-profit-estimates-2023-07-19/']'''
             #for link in web_links:
+            st.write("hello")
             link='https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite'
             st.write(link)
             text= web_scraping(link)
