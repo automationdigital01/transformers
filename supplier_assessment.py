@@ -83,4 +83,5 @@ def main():
                            file_name='supplier_df.csv',
                            mime='text/csv',)
 
-
+if __name__ == "__main__":
+    main()
