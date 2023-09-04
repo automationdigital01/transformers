@@ -56,7 +56,7 @@ def main():
                            'Larsen & Toubro Limited'])
     if st.button("Submit"):
         st.write("Selected Suppliers:", options)
-        if options =='Halliburton Company':
+        if 'Halliburton Company' in options :
             '''web_links=['https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite',
                     'https://www.investors.com/research/ibd-stock-analysis/energy-stock-named-top-pick-analysts-see-34-percent-upside-for-halliburton/',
                     'https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services',
