@@ -1,1 +1,5 @@
 transformers
+streamlit
+pandas
+bs4
+requests
