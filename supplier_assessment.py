@@ -57,6 +57,8 @@ def main():
                           ['Icarus SA','Qatar International Cables Trading Co.',
                            'Halliburton Company','Chennai Petroleum Corporation Limited',
                            'Larsen & Toubro Limited'])
+    options=options.replace('["','')
+    options=options.replace('"]','')
     if st.button("Submit"):
         st.write("Selected Suppliers:", options)
         if 'Halliburton Company' in options :
