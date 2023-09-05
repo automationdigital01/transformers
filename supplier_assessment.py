@@ -47,7 +47,7 @@ def sent_analysis(summary):
     nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer)
     sentences = summary
     results = nlp(sentences)
-    return results[0]  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
+    return results[0]["label"]  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
 
 def main():
     dataframe_data=[]
