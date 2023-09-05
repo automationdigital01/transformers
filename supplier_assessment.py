@@ -36,6 +36,8 @@ def summarize(text):
     truncation=True)
     summary_ids = model.generate(inputs, max_length=80, min_length=50, length_penalty=5., num_beams=2) 
     summary = tokenizer.decode(summary_ids[0])
+    summary=summary.replace('<pad>','')
+    summary=summary.replace('</s>','')
     return summary
 
 #sentiment analysis using FinBert
@@ -45,7 +47,7 @@ def sent_analysis(summary):
     nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer)
     sentences = summary
     results = nlp(sentences)
-    return results  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
+    return results[0]  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
 
 def main():
     dataframe_data=[]
