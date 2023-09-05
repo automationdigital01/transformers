@@ -57,10 +57,9 @@ def main():
                           ['Icarus SA','Qatar International Cables Trading Co.',
                            'Halliburton Company','Chennai Petroleum Corporation Limited',
                            'Larsen & Toubro Limited'])
-    options=options.replace('["','')
-    options=options.replace('"]','')
+    
     if st.button("Submit"):
-        st.write("Selected Suppliers:", options)
+        st.write("Selected Suppliers:", options[0])
         if 'Halliburton Company' in options :
             web_links=['https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite',
                     'https://www.investors.com/research/ibd-stock-analysis/energy-stock-named-top-pick-analysts-see-34-percent-upside-for-halliburton/',
