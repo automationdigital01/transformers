@@ -75,7 +75,7 @@ def main():
                             
                         
                 dataframe_data.append({
-                        "Supplier Name" : options,
+                        "Supplier Name" : options[0],
                         "News" : summary,
                         "Result" : sentiment
                         })
