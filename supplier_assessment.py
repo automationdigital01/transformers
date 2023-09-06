@@ -88,8 +88,10 @@ def main():
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0])
+        st.write(links_list)
 
         for link in links_list:
+            
             text= web_scraping(link)
             summary=summarize(text)
             sentiment=sent_analysis(summary)
