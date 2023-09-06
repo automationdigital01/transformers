@@ -14,8 +14,8 @@ def web_scraping(URL):
     headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     # Here the user agent is for Edge browser on windows 10. You can find your browser user agent from the above given link.
     #URL="https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services"
-    #r = requests.get(url=URL,verify=False, headers=headers)
-    r = requests.get(url=URL, headers=headers)
+    r = requests.get(url=URL,verify=False, headers=headers)
+    
     soup = BeautifulSoup(r.text, "html.parser")
     # Get the whole body tag
     tag = soup.body
@@ -92,6 +92,7 @@ def main():
         links_list= web_links(options[0])
 
         for link in links_list:
+            st.write(link)
             text= web_scraping(link)
             summary=summarize(text)
             sentiment=sent_analysis(summary)
