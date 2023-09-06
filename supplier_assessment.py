@@ -16,9 +16,9 @@ def web_scraping(URL):
     #URL="https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services"
     r = requests.get(url=URL,verify=False, headers=headers)
     soup = BeautifulSoup(r.text, "html.parser")
+    st.write(soup)
     # Get the whole body tag
     tag = soup.body
-    st.write(tag)
     full_text=""
     # Print each string recursively
     for string in tag.strings:
@@ -89,10 +89,8 @@ def main():
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0])
-        st.write(links_list)
 
         for link in links_list:
-            
             text= web_scraping(link)
             summary=summarize(text)
             sentiment=sent_analysis(summary)
