@@ -6,9 +6,6 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import pipeline
 import streamlit as st
 import pandas as pd
-import csv
-import requests
-from bs4 import BeautifulSoup
 import urllib.parse
 
 ##web scraping usin BeautifulSoup
@@ -97,11 +94,11 @@ def main():
             sentiment=sent_analysis(summary)
                             
                         
-            dataframe_data.append({
-                    "Supplier Name" : options[0],
-                    "News" : summary,
-                    "Result" : sentiment
-                    })
+        dataframe_data.append({
+                "Supplier Name" : options[0],
+                "News" : summary,
+                "Result" : sentiment
+                })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
