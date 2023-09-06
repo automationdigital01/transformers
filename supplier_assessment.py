@@ -1,12 +1,15 @@
 
 import requests
 from bs4 import BeautifulSoup
-import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
 from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import pipeline
 import streamlit as st
 import pandas as pd
+import csv
+import requests
+from bs4 import BeautifulSoup
+import urllib.parse
 
 ##web scraping usin BeautifulSoup
 def web_scraping(URL):
@@ -50,8 +53,34 @@ def sent_analysis(summary):
     results=results[0]["label"]
     return results  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
 
+def generate_google_news_url(query):
+    encoded_query = urllib.parse.quote(query)
+    return f"https://www.google.com/search?q={encoded_query}&tbm=nws"
+
+def web_links(supplier):
+    # Specify the search query with the company name
+    search_query = f"{supplier} news"  # Modify this as needed
+
+    # Generate the Google News search URL using the function
+    google_news_url = generate_google_news_url(search_query)
+
+    # Fetch the Google News search results page
+    data = requests.get(google_news_url)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    links_list = []
+
+    for links in soup.find_all('a'):
+        link = links.get('href')
+        if link and link.startswith('/url?q='):
+            # Extract the actual URL from the Google search results link
+            actual_link = link.split('/url?q=')[1].split('&sa=')[0]
+            links_list.append(actual_link)
+    return links_list
+
+
 def main():
     dataframe_data=[]
+    links_list=[]
     st.title("Credit Worthiness Check")
     options=st.multiselect('Select the Suppliers',
                           ['Icarus SA','Qatar International Cables Trading Co.',
@@ -60,25 +89,19 @@ def main():
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
-        if 'Halliburton Company' in options :
-            web_links=['https://seekingalpha.com/article/4631331-halliburton-demand-softness-is-beginning-to-bite',
-                    'https://www.investors.com/research/ibd-stock-analysis/energy-stock-named-top-pick-analysts-see-34-percent-upside-for-halliburton/',
-                    'https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services',
-                    'https://www.thecoinrepublic.com/2023/08/21/hal-stock-halliburton-has-bullish-or-bearish-outlook-for-2023/',
-                    'https://www.investopedia.com/halliburton-warns-of-us-drilling-slowdown-7563102',
-                    'https://www.reuters.com/business/energy/halliburton-beats-second-quarter-profit-estimates-2023-07-19/']
-            for link in web_links:
-                
-                text= web_scraping(link)
-                summary=summarize(text)
-                sentiment=sent_analysis(summary)
+        links_list= web_links(options[0])
+
+        for link in links_list:
+            text= web_scraping(link)
+            summary=summarize(text)
+            sentiment=sent_analysis(summary)
                             
                         
-                dataframe_data.append({
-                        "Supplier Name" : options[0],
-                        "News" : summary,
-                        "Result" : sentiment
-                        })
+            dataframe_data.append({
+                    "Supplier Name" : options[0],
+                    "News" : summary,
+                    "Result" : sentiment
+                    })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
