@@ -1,6 +1,7 @@
 
 import requests
 from bs4 import BeautifulSoup
+import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
 from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import pipeline
