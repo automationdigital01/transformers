@@ -18,6 +18,7 @@ def web_scraping(URL):
     soup = BeautifulSoup(r.text, "html.parser")
     # Get the whole body tag
     tag = soup.body
+    st.write(tag)
     full_text=""
     # Print each string recursively
     for string in tag.strings:
