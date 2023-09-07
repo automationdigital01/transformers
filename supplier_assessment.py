@@ -96,9 +96,11 @@ def main():
         for link in links_list:
             st.write(link)
             text= web_scraping(link)
+            st.write(text)
             summary=summarize(text)
+            st.write(summary)
             sentiment=sent_analysis(summary)
-                            
+            st.write(sentiment)                
                         
         dataframe_data.append({
                 "Supplier Name" : options[0],
