@@ -9,6 +9,12 @@ import streamlit as st
 import pandas as pd
 import urllib.parse
 
+#load tokenizer and models
+tokenizer_summarize = AutoTokenizer.from_pretrained('t5-base')
+model_summarize = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
+finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
+tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
+
 ##web scraping usin BeautifulSoup
 def web_scraping(URL):
     headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
@@ -32,16 +38,15 @@ def web_scraping(URL):
 
 ##summarization using T5 summarizer, using huggingface
 def summarize(text):
-    tokenizer = AutoTokenizer.from_pretrained('t5-base')
-    model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
+    
     #text=full_text
     if text:
-        inputs = tokenizer.encode("summarize: " + text,
+        inputs = tokenizer_summarize.encode("summarize: " + text,
         return_tensors='pt',
         max_length=512,
         truncation=True)
-        summary_ids = model.generate(inputs, max_length=80, min_length=50, length_penalty=5., num_beams=2) 
-        summary = tokenizer.decode(summary_ids[0])
+        summary_ids = model_summarize.generate(inputs, max_length=80, min_length=50, length_penalty=5., num_beams=2) 
+        summary = tokenizer_summarize.decode(summary_ids[0])
         summary=summary.replace('<pad>','')
         summary=summary.replace('</s>','')
         return summary
@@ -49,9 +54,8 @@ def summarize(text):
 
 #sentiment analysis using FinBert
 def sent_analysis(summary):
-    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
-    tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
-    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer)
+    
+    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
     sentences = summary
     results = nlp(sentences)
     results=results[0]["label"]
