@@ -15,17 +15,19 @@ def web_scraping(URL):
     # Here the user agent is for Edge browser on windows 10. You can find your browser user agent from the above given link.
     #URL="https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services"
     r = requests.get(url=URL,verify=False, headers=headers)
-    
     soup = BeautifulSoup(r.text, "html.parser")
-    # Get the whole body tag
-    tag = soup.body
-    #article_body = soup.find("div", class_="article__body-content")
-    full_text=""
-    # Print each string recursively
-    for string in tag.strings:
-        full_text=full_text+string
-    full_text=full_text.replace("\n"," ")    
-    return full_text
+    # Check if soup.body is not None before extracting strings
+    if soup.body:
+        # Get the whole body tag
+        tag = soup.body
+        #article_body = soup.find("div", class_="article__body-content")
+        full_text=""
+        # Print each string recursively
+        for string in tag.strings:
+            full_text=full_text+string
+        full_text=full_text.replace("\n"," ")    
+        return full_text
+    return None  # Return None if there is no body tag
 
 
 ##summarization using T5 summarizer, using huggingface
@@ -100,6 +102,7 @@ def main():
                         
         dataframe_data.append({
                 "Supplier Name" : options[0],
+                "News link": link, 
                 "News" : summary,
                 "Result" : sentiment
                 })
