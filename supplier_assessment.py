@@ -35,15 +35,17 @@ def summarize(text):
     tokenizer = AutoTokenizer.from_pretrained('t5-base')
     model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
     #text=full_text
-    inputs = tokenizer.encode("summarize: " + text,
-    return_tensors='pt',
-    max_length=512,
-    truncation=True)
-    summary_ids = model.generate(inputs, max_length=80, min_length=50, length_penalty=5., num_beams=2) 
-    summary = tokenizer.decode(summary_ids[0])
-    summary=summary.replace('<pad>','')
-    summary=summary.replace('</s>','')
-    return summary
+    if text:
+        inputs = tokenizer.encode("summarize: " + text,
+        return_tensors='pt',
+        max_length=512,
+        truncation=True)
+        summary_ids = model.generate(inputs, max_length=80, min_length=50, length_penalty=5., num_beams=2) 
+        summary = tokenizer.decode(summary_ids[0])
+        summary=summary.replace('<pad>','')
+        summary=summary.replace('</s>','')
+        return summary
+    return None #if text is none
 
 #sentiment analysis using FinBert
 def sent_analysis(summary):
