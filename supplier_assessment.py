@@ -9,11 +9,7 @@ import streamlit as st
 import pandas as pd
 import urllib.parse
 
-#load tokenizer and models
-tokenizer_summarize = AutoTokenizer.from_pretrained('t5-base')
-model_summarize = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
-finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
-tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
+
 
 ##web scraping usin BeautifulSoup
 def web_scraping(URL):
@@ -38,7 +34,8 @@ def web_scraping(URL):
 
 ##summarization using T5 summarizer, using huggingface
 def summarize(text):
-    
+    tokenizer_summarize = AutoTokenizer.from_pretrained('t5-base')
+    model_summarize = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
     #text=full_text
     if text:
         inputs = tokenizer_summarize.encode("summarize: " + text,
@@ -54,7 +51,8 @@ def summarize(text):
 
 #sentiment analysis using FinBert
 def sent_analysis(summary):
-    
+    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
+    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
     nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
     sentences = summary
     results = nlp(sentences)
