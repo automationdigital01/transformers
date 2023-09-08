@@ -36,7 +36,7 @@ def web_scraping(URL):
         for string in tag.strings:
             full_text=full_text+string
         full_text=full_text.replace("\n"," ")    
-        return full_text, title
+        return full_text
               
     #return None  # Return None if there is no body tag
 
