@@ -35,7 +35,7 @@ def web_scraping(URL):
         full_text=full_text.replace("\n"," ")    
         return full_text
               
-    return None  # Return None if there is no body tag
+    #return None  # Return None if there is no body tag
 
 
 ##summarization using T5 summarizer, using huggingface
@@ -53,8 +53,8 @@ def summarize(text):
         summary=summary.replace('<pad>','')
         summary=summary.replace('</s>','')
         return summary
-    else:
-        return None #if text is none
+    #else:
+     #   return None #if text is none
 
 #sentiment analysis using FinBert
 def sent_analysis(summary):
