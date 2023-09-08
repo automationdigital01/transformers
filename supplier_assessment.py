@@ -26,11 +26,14 @@ def web_scraping(URL):
     
     soup = BeautifulSoup(r.text, "html.parser")
     if soup.body:
+        title=soup.title.text
+        st.write("Title:", title)
+        para=soup.find("p")
         # Get the whole body tag
-        tag = soup.body
+        #tag = soup.body
         full_text=""
         # Print each string recursively
-        for string in tag.strings:
+        for string in para.strings:
             full_text=full_text+string
         full_text=full_text.replace("\n"," ")    
         return full_text
