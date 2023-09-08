@@ -28,7 +28,7 @@ def web_scraping(URL):
     if soup.body:
         title=soup.title.text
         st.write("Title:", title)
-        para=soup.find_all("p")
+        para=soup.find("p")
         # Get the whole body tag
         #tag = soup.body
         full_text=""
