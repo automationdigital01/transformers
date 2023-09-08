@@ -98,13 +98,13 @@ def main():
         links_list= web_links(options[0])
 
         for link in links_list:
-            #st.write(link)
+            st.write(link)
             text= web_scraping(link)
-            #st.write(text)
+            st.write(text)
             summary=summarize(text)
-            #st.write(summary)
+            st.write(summary)
             sentiment=sent_analysis(summary)
-            #st.write(sentiment)                
+            st.write(sentiment)                
                         
         dataframe_data.append({
                 "Supplier Name" : options[0],
