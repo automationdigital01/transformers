@@ -60,8 +60,8 @@ def web_scraping(URL,company_name):
         # Combine the extracted text into a single string
         full_text = "\n".join(main_content)
         full_text=full_text.replace("\n"," ")    
-    return full_text
-    #return None  # Return None if there is no body tag
+        return full_text
+    return None  # Return None if there is no body tag
 
 
 ##summarization using T5 summarizer, using huggingface
