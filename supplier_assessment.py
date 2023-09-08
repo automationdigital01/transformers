@@ -36,7 +36,7 @@ def web_scraping(URL):
         for string in para.strings:
             full_text=full_text+string
         full_text=full_text.replace("\n"," ")    
-        return full_text
+        return full_text, title
               
     #return None  # Return None if there is no body tag
 
@@ -117,11 +117,11 @@ def main():
             sentiment=sent_analysis(summary)
             st.write(sentiment)                
                         
-        dataframe_data.append({
-                "Supplier Name" : options[0], 
-                "News" : summary,
-                "Result" : sentiment
-                })
+            dataframe_data.append({
+                    "Supplier Name" : options[0], 
+                    "News" : summary,
+                    "Result" : sentiment
+                    })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
