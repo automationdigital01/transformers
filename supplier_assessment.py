@@ -60,11 +60,12 @@ def summarize(text):
 def sent_analysis(summary):
     finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
     tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
-    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
-    sentences = summary
-    results = nlp(sentences)
-    results=results[0]["label"]
-    return results  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
+    if summary:
+        nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
+        sentences = summary
+        results = nlp(sentences)
+        results=results[0]["label"]
+        return results  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
 
 def generate_google_news_url(query):
     encoded_query = urllib.parse.quote(query)
