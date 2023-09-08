@@ -19,7 +19,6 @@ def generate_google_news_url(query):
 
 ##web scraping usin BeautifulSoup
 def web_scraping(URL):
-   
     headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     # Here the user agent is for Edge browser on windows 10. You can find your browser user agent from the above given link.
     #URL="https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services"
@@ -107,7 +106,7 @@ def main():
 
         for link in links_list:
             st.write(link)
-            text= web_scraping(link,options[0])
+            text= web_scraping(link)
             st.write(text)
             summary=summarize(text)
             st.write(summary)
