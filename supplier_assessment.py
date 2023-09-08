@@ -16,51 +16,26 @@ def generate_google_news_url(query):
     encoded_query = urllib.parse.quote(query)
     return f"https://www.google.com/search?q={encoded_query}&tbm=nws"
 
-# Function to check if a string contains the company name
-def contains_company_name(text, company_name):
-    return re.search(rf'\b{company_name}\b', text, re.IGNORECASE) is not None
-
-# Function to scrape and print article content from a URL
-def print_article_content(URL, company_name):
-    # Skip printing if the URL is from support.google.com
-    if 'support.google.com' in URL:
-        return
-    
-# Function to check if an element is likely an advertisement
-def is_advertisement(ad_elements):
-    for element in ad_elements:
-        if element.find_all(ad_elements):
-            return True
-    return False    
 
 ##web scraping usin BeautifulSoup
-def web_scraping(URL,company_name):
-    print_article_content(URL,company_name)
+def web_scraping(URL):
+   
     headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     # Here the user agent is for Edge browser on windows 10. You can find your browser user agent from the above given link.
     #URL="https://www.investorsobserver.com/news/stock-update/is-halliburton-company-hal-the-right-choice-in-oil-gas-equipment-services"
     r = requests.get(url=URL,verify=False, headers=headers)
+    
     soup = BeautifulSoup(r.text, "html.parser")
-    # Get the article title
-    article_title = soup.title.string
-    # Check if the article title or description contains the company name
-    if contains_company_name(article_title, company_name):
-        # Define a list of HTML elements that might contain advertisements
-        ad_elements = ["aside", "iframe", "ins", "script"]
-
-        # Initialize an empty list to store the extracted text
-        main_content = []
-
-        # Extract text from paragraph (p) tags
-        for p_tag in soup.find_all('p'):
-            p_text = p_tag.text.strip()
-            if not is_advertisement(p_tag):
-                main_content.append(p_text)
-
-        # Combine the extracted text into a single string
-        full_text = "\n".join(main_content)
+    if soup.body:
+        # Get the whole body tag
+        tag = soup.body
+        full_text=""
+        # Print each string recursively
+        for string in tag.strings:
+            full_text=full_text+string
         full_text=full_text.replace("\n"," ")    
         return full_text
+              
     return None  # Return None if there is no body tag
 
 
