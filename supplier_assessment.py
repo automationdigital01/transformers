@@ -59,19 +59,7 @@ def web_scraping(URL,company_name):
 
         # Combine the extracted text into a single string
         full_text = "\n".join(main_content)
-    
-
-    # Check if soup.body is not None before extracting strings
-    """if soup.body:
-        # Get the whole body tag
-        tag = soup.body
-        #article_body = soup.find("div", class_="article__body-content")
-        full_text=""
-        # Print each string recursively
-        for string in tag.strings:
-            full_text=full_text+string"""
-        
-    full_text=full_text.replace("\n"," ")    
+        full_text=full_text.replace("\n"," ")    
     return full_text
     #return None  # Return None if there is no body tag
 
