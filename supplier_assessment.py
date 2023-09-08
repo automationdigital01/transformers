@@ -118,8 +118,7 @@ def main():
             st.write(sentiment)                
                         
         dataframe_data.append({
-                "Supplier Name" : options[0],
-                "News link": link, 
+                "Supplier Name" : options[0], 
                 "News" : summary,
                 "Result" : sentiment
                 })
