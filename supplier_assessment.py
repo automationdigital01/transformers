@@ -53,8 +53,8 @@ def summarize(text):
         summary=summary.replace('<pad>','')
         summary=summary.replace('</s>','')
         return summary
-    #else:
-     #   return None #if text is none
+    else:
+        return None #if text is none
 
 #sentiment analysis using FinBert
 def sent_analysis(summary):
@@ -95,7 +95,7 @@ def web_links(supplier):
 def main():
     dataframe_data=[]
     links_list=[]
-    st.title("Credit Worthiness Check")
+    st.title("Credit Analysis of Vendors")
     options=st.multiselect('Select the Suppliers',
                           ['Icarus SA','Qatar International Cables Trading Co.',
                            'Halliburton Company','Chennai Petroleum Corporation Limited',
