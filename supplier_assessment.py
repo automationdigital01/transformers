@@ -38,7 +38,7 @@ def summarize(text):
     model_summarize = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
     #text=full_text
     if text:
-        inputs = tokenizer_summarize.encode("summarize: " + text,
+        inputs = tokenizer_summarize.encode(text_target= text,
         return_tensors='pt',
         max_length=512,
         truncation=True)
