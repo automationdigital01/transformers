@@ -111,14 +111,15 @@ def main():
         for link in links_list:
             st.write(link)
             text= web_scraping(link)
-            st.write(text)
+            #st.write(text)
             summary=summarize(text)
             st.write(summary)
             sentiment=sent_analysis(summary)
             st.write(sentiment)                
                         
             dataframe_data.append({
-                    "Supplier Name" : options[0], 
+                    "Supplier Name" : options[0],
+                    "News_link": link, 
                     "News" : summary,
                     "Result" : sentiment
                     })
