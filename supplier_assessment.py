@@ -16,17 +16,7 @@ def generate_google_news_url(query):
     encoded_query = urllib.parse.quote(query)
     return f"https://www.google.com/search?q={encoded_query}&tbm=nws"
 
-# Function to check if a string contains the company name
-def contains_company_name(text, company_name):
-    return re.search(rf'\b{company_name}\b', text, re.IGNORECASE) is not None
 
-# Function to check if an element is likely an advertisement
-def is_advertisement(element):
-    ad_elements = ["aside", "iframe", "ins", "script"]
-    for ad_element in ad_elements:
-        if element.find_all(ad_element):
-            return True
-    return False
 
 ##web scraping usin BeautifulSoup
 def web_scraping(URL,supplier):
@@ -39,40 +29,15 @@ def web_scraping(URL,supplier):
     if soup.body:
         title=soup.title.text
         st.write("Title:", title)
-        title= soup.title.text
-        print("Title:", title)
-        # Check if the article title or description contains the company name
-
-                # Function to check if an element is likely an advertisement
-        def is_advertisement(element):
-            ad_elements = ["aside", "iframe", "ins", "script"]
-            for ad_element in ad_elements:
-                if element.find_all(ad_element):
-                    return True
-            return False
-
-                # Initialize an empty list to store the extracted text
-        main_content = []
-
-            # Extract text from paragraph (p) tags
-        for p_tag in soup.find_all('p'):
-            p_text = p_tag.text.strip()
-            if not is_advertisement(p_tag):
-                main_content.append(p_text)
-
-                # Combine the extracted text into a single string
-        full_text = "\n".join(main_content)
-
-    return full_text
-        #para=soup.find("p")
+        para=soup.find("p")
         # Get the whole body tag
         #tag = soup.body
-        #full_text=""
+        full_text=""
         # Print each string recursively
-        #for string in tag.strings:
-         #   full_text=full_text+string
-        #full_text=full_text.replace("\n"," ")    
-        
+        for string in para.strings:
+            full_text=full_text+string
+        full_text=full_text.replace("\n"," ")    
+        return full_text
               
     #return None  # Return None if there is no body tag
 
