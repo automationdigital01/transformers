@@ -20,6 +20,13 @@ def generate_google_news_url(query):
 def contains_company_name(text, company_name):
     return re.search(rf'\b{company_name}\b', text, re.IGNORECASE) is not None
 
+# Function to check if an element is likely an advertisement
+def is_advertisement(element):
+    ad_elements = ["aside", "iframe", "ins", "script"]
+    for ad_element in ad_elements:
+        if element.find_all(ad_element):
+            return True
+    return False
 
 ##web scraping usin BeautifulSoup
 def web_scraping(URL,supplier):
@@ -34,23 +41,16 @@ def web_scraping(URL,supplier):
         st.write("Title:", title)
         # Define a list of HTML elements that might contain advertisements
         if contains_company_name(title, supplier):
-            ad_elements = ["aside", "iframe", "ins", "script"]
-
-        # Function to check if an element is likely an advertisement
-        def is_advertisement(element):
-            for ad_element in ad_elements:
-                if element.find_all(ad_element):
-                    return True
-            return False
-
-        # Initialize an empty list to store the extracted text
-        main_content = []
+         
+        
+       # Initialize an empty list to store the extracted text
+            main_content = []
 
         # Extract text from paragraph (p) tags
-        for p_tag in soup.find_all('p'):
-            p_text = p_tag.text.strip()
-            if not is_advertisement(p_tag):
-                main_content.append(p_text)
+            for p_tag in soup.find_all('p'):
+                p_text = p_tag.text.strip()
+                if not is_advertisement(p_tag):
+                    main_content.append(p_text)
 
         # Combine the extracted text into a single string
         full_text = "\n".join(main_content)
