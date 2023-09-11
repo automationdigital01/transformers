@@ -39,19 +39,31 @@ def web_scraping(URL,supplier):
     if soup.body:
         title=soup.title.text
         st.write("Title:", title)
-        # Define a list of HTML elements that might contain advertisements
-        if contains_company_name(title, supplier):
-            main_content = []
+        title= soup.title.text
+        print("Title:", title)
+        # Check if the article title or description contains the company name
 
-        # Extract text from paragraph (p) tags
-            for p_tag in soup.find_all('p'):
-                p_text = p_tag.text.strip()
-                if not is_advertisement(p_tag):
-                    main_content.append(p_text)
+                # Function to check if an element is likely an advertisement
+        def is_advertisement(element):
+            ad_elements = ["aside", "iframe", "ins", "script"]
+            for ad_element in ad_elements:
+                if element.find_all(ad_element):
+                    return True
+            return False
 
-        # Combine the extracted text into a single string
-            full_text = "\n".join(main_content)
-            return full_text
+                # Initialize an empty list to store the extracted text
+        main_content = []
+
+            # Extract text from paragraph (p) tags
+        for p_tag in soup.find_all('p'):
+            p_text = p_tag.text.strip()
+            if not is_advertisement(p_tag):
+                main_content.append(p_text)
+
+                # Combine the extracted text into a single string
+        full_text = "\n".join(main_content)
+
+    return full_text
         #para=soup.find("p")
         # Get the whole body tag
         #tag = soup.body
