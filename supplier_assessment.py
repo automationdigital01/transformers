@@ -74,6 +74,14 @@ def generate_google_news_url(query):
     encoded_query = urllib.parse.quote(query)
     return f"https://www.google.com/search?q={encoded_query}&tbm=nws"
 
+# Function to filter out unwanted links
+def filter_links(link):
+    unwanted_domains = ['support.google.com', 'accounts.google.com']
+    for domain in unwanted_domains:
+        if domain in link:
+            return False
+    return True
+
 def web_links(supplier):
     # Specify the search query with the company name
     search_query = f"{supplier} news"  # Modify this as needed
@@ -88,7 +96,7 @@ def web_links(supplier):
 
     for links in soup.find_all('a'):
         link = links.get('href')
-        if link and link.startswith('/url?q='):
+        if link and link.startswith('/url?q=') and filter_links(link):
             # Extract the actual URL from the Google search results link
             actual_link = link.split('/url?q=')[1].split('&sa=')[0]
             links_list.append(actual_link)
