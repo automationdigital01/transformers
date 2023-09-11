@@ -54,7 +54,7 @@ def web_scraping(URL,supplier):
 
         # Combine the extracted text into a single string
             full_text = "\n".join(main_content)
-
+    return full_text
         #para=soup.find("p")
         # Get the whole body tag
         #tag = soup.body
@@ -63,7 +63,7 @@ def web_scraping(URL,supplier):
         #for string in tag.strings:
          #   full_text=full_text+string
         #full_text=full_text.replace("\n"," ")    
-        return full_text
+        
               
     #return None  # Return None if there is no body tag
 
