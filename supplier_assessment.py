@@ -52,7 +52,7 @@ def summarize(text):
         return_tensors='pt',
         max_length=512,
         truncation=True)
-        summary_ids = model_summarize.generate(inputs, max_length=80, min_length=50, length_penalty=5., num_beams=2) 
+        summary_ids = model_summarize.generate(inputs, max_length=80, min_length=60, length_penalty=5., num_beams=2) 
         summary = tokenizer_summarize.decode(summary_ids[0])
         summary=summary.replace('<pad>','')
         summary=summary.replace('</s>','')
