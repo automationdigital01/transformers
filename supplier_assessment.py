@@ -53,7 +53,7 @@ def web_scraping(URL,supplier):
                     main_content.append(p_text)
 
         # Combine the extracted text into a single string
-        full_text = "\n".join(main_content)
+            full_text = "\n".join(main_content)
 
         #para=soup.find("p")
         # Get the whole body tag
