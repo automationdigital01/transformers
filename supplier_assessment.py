@@ -112,7 +112,7 @@ def main():
     options=st.multiselect('Select the Suppliers',
                           ['Icarus SA','Qatar International Cables Trading Co.',
                            'Halliburton Company','Chennai Petroleum Corporation Limited',
-                           'Larsen & Toubro Limited','Gujarat Infrapipes Private Limited'])
+                           'Larsen & Toubro Limited'])
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
