@@ -29,14 +29,15 @@ def web_scraping(URL,supplier):
     if soup.body:
         title=soup.title.text
         st.write("Title:", title)
+        full_text=soup.get_text()
         #para=soup.find("p")
         # Get the whole body tag
-        tag = soup.body
-        full_text=""
+        #tag = soup.body
+        #full_text=""
         # Print each string recursively
-        for string in tag.strings:
-            full_text=full_text+string
-        full_text=full_text.replace("\n"," ")    
+        #for string in tag.strings:
+         #   full_text=full_text+string
+        #full_text=full_text.replace("\n"," ")    
         return full_text
               
     #return None  # Return None if there is no body tag
