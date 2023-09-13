@@ -31,6 +31,7 @@ def web_scraping(URL,company_name):
         
         full_text=soup.get_text()
         if pattern.search(full_text) and pattern.search(title):
+            st.write(URL)
             st.write("Title:", title)
             return full_text
               
@@ -113,7 +114,7 @@ def main():
         for link in links_list:
             text= web_scraping(link,options[0])
             if text:
-                st.write(link)
+                
                 #st.write(text)
                 summary=summarize(text)
                 st.write(summary)
