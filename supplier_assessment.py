@@ -30,7 +30,7 @@ def web_scraping(URL,company_name):
         title=soup.title.text
         
         full_text=soup.get_text()
-        if pattern.search(full_text) and pattern.search(title):
+        if pattern.search(full_text):
             st.write(URL)
             st.write("Title:", title)
             return full_text
