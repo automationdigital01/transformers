@@ -151,8 +151,8 @@ def main():
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
-        #links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
-        links_list=weblink_news_api(options[0])
+        links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
+        #links_list=weblink_news_api(options[0])
 
         for link in links_list:
             text= web_scraping(link,options[0])
