@@ -9,6 +9,9 @@ import streamlit as st
 import pandas as pd
 import urllib.parse
 import re
+import urllib3
+
+urllib3.disable_warnings()
 
 
 # Function to convert search query to Google News search URL
@@ -67,6 +70,42 @@ def sent_analysis(summary):
         results=results[0]["label"]
         return results  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
 
+#get weblinks using news api
+def weblink_news_api(company_name):
+    # Replace 'YOUR_API_KEY' with your actual NewsAPI key
+    api_key = '4e086fbfe2bc48eea914d5b05a79d498'
+    proxy = None  # Set to None if you don't want to use a proxy
+
+    # Create the URL for the NewsAPI request
+    url = f'https://newsapi.org/v2/everything?q={company_name}&apiKey={api_key}&pageSize=10'
+
+    # Define additional parameters for the request
+    request_params = {}
+
+    # If a proxy is provided, set it in the request parameters
+    if proxy:
+        request_params['proxies'] = proxy
+
+    # Send a GET request to NewsAPI with SSL verification disabled
+    response = requests.get(url, verify=False, **request_params)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        articles = data['articles']
+
+        # Create a list to store the latest 10 article URLs
+        latest_news_urls = []
+
+        # Iterate through the articles and extract the URLs
+        for article in articles:
+            article_url = article.get('url')
+            if article_url:
+                latest_news_urls.append(article_url)
+
+        return latest_news_urls
+    else:
+        return None
 
 
 # Function to filter out unwanted links
@@ -112,7 +151,8 @@ def main():
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
-        links_list= web_links(options[0])
+        #links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
+        links_list=weblink_news_api(options[0])
 
         for link in links_list:
             text= web_scraping(link,options[0])
