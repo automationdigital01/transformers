@@ -76,35 +76,36 @@ def weblink_news_api(company_name):
     api_key = '4e086fbfe2bc48eea914d5b05a79d498'
     proxy = None  # Set to None if you don't want to use a proxy
 
-    # Create the URL for the NewsAPI request
-    url = f'https://newsapi.org/v2/everything?q={company_name}&apiKey={api_key}&pageSize=10'
+    try:
+        # Create the URL for the NewsAPI request
+        url = f'https://newsapi.org/v2/everything?q={company_name}&apiKey={api_key}&pageSize=10'
 
-    # Define additional parameters for the request
-    request_params = {}
+        # Send a GET request to NewsAPI with SSL verification disabled
+        response = requests.get(url, verify=False)
 
-    # If a proxy is provided, set it in the request parameters
-    if proxy:
-        request_params['proxies'] = proxy
+        # Check if the request was successful
+        if response.status_code == 200:
+            data = response.json()
+            articles = data.get('articles', [])
 
-    # Send a GET request to NewsAPI with SSL verification disabled
-    response = requests.get(url, verify=False, **request_params)
+            # Create a set to store the unique websites that mention the company name
+            company_websites = set()
 
-    # Check if the request was successful
-    if response.status_code == 200:
-        data = response.json()
-        articles = data['articles']
+            # Iterate through the articles and extract the source URLs
+            for article in articles:
+                source_url = article.get('url')
+                
 
-        # Create a list to store the latest 10 article URLs
-        latest_news_urls = []
+                # Check if the source URL is not None and not already in the set
+                if source_url and source_url not in company_websites:
+                    company_websites.add(source_url)
 
-        # Iterate through the articles and extract the URLs
-        for article in articles:
-            article_url = article.get('url')
-            if article_url:
-                latest_news_urls.append(article_url)
-
-        return latest_news_urls
-    else:
+            return list(company_websites)
+        else:
+            print(f'Error: Unable to fetch news for {company_name}. Status code: {response.status_code}')
+            return None
+    except requests.exceptions.RequestException as e:
+        print(f'Error: An error occurred during the request: {str(e)}')
         return None
 
 
@@ -151,8 +152,9 @@ def main():
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
-        #links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
-        links_list=weblink_news_api(options[0])
+        links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
+        if links_list is None:
+            links_list=weblink_news_api(options[0])
 
         for link in links_list:
             text= web_scraping(link,options[0])
