@@ -152,7 +152,7 @@ def main():
                            'Gulf Asia Contracting LLC',
                            'Hamad Bin Khaled Contracting',
                            'Nasser Saeed Al-Hajri And Partners Contracting Company (NSH)',
-                           'Curo Co., Ltd.'               
+                           'Curo Co.Ltd.'               
                         
                            
                            
