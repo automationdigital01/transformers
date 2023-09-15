@@ -143,12 +143,11 @@ def main():
     links_list=[]
     st.title("Credit Analysis of Vendors")
     options=st.multiselect('Select the Suppliers',
-                          ['Icarus SA','Qatar International Cables Trading Co.',
-                           'Halliburton Company','Chennai Petroleum Corporation Limited',
+                          ['Halliburton Company','Chennai Petroleum Corporation Limited',
                            'Larsen & Toubro Limited',
                            'Morimatsu (Jiangsu) Heavy Industry',
                            'Godrej & Boyce Manufacturing Company Limited',
-                           'Reliance Industries Limited'])
+                           ])
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
@@ -162,9 +161,9 @@ def main():
                 
                 #st.write(text)
                 summary=summarize(text)
-                st.write(summary)
+                st.write("Summary:",summary)
                 sentiment=sent_analysis(summary)
-                st.write(sentiment)                
+                st.write("Analysis:", sentiment)                
                             
                 dataframe_data.append({
                         "Supplier Name" : options[0],
