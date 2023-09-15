@@ -145,9 +145,13 @@ def main():
     options=st.multiselect('Select the Suppliers',
                           ['Halliburton Company',
                            'Chennai Petroleum Corporation Limited',
-                           'Larsen & Toubro Limited',
-                           'Morimatsu (Jiangsu) Heavy Industry',
                            'Godrej & Boyce Manufacturing Company Limited',
+                           'Sundyne International SA',
+                           'McPhy Energy S.A. (ENXTPA:MCPHY)',
+                           'Schmidt + Clemens GmbH + Co. KG',
+                           'Sick AG',
+                           'Consolidated Contractors Group S.A.L.',
+                           'FCG Flameproof Control Gears Private Limited'
                            ])
     
     if st.button("Submit"):
