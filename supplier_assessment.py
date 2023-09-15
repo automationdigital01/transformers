@@ -143,16 +143,13 @@ def main():
     links_list=[]
     st.title("Credit Analysis of Vendors")
     options=st.multiselect('Select the Suppliers',
-                          ['Halliburton Company',
+                         ['Halliburton Company',
                            'Chennai Petroleum Corporation Limited',
                            'Sick AG',
                            'Godrej & Boyce Manufacturing Company Limited',
                            'Sofinter SpA',
                            'Chiyoda Corporation',
-                           'Gulf Asia Contracting LLC',
-                           'Hamad Bin Khaled Contracting',
-                           'Nasser Saeed Al-Hajri And Partners Contracting Company (NSH)',
-                           'Curo Co.Ltd.'               
+                           'Hamad Bin Khaled Contracting'              
                         
                            
                            
