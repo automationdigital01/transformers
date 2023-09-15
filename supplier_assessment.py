@@ -143,7 +143,8 @@ def main():
     links_list=[]
     st.title("Credit Analysis of Vendors")
     options=st.multiselect('Select the Suppliers',
-                          ['Halliburton Company','Chennai Petroleum Corporation Limited',
+                          ['Halliburton Company',
+                           'Chennai Petroleum Corporation Limited',
                            'Larsen & Toubro Limited',
                            'Morimatsu (Jiangsu) Heavy Industry',
                            'Godrej & Boyce Manufacturing Company Limited',
@@ -152,8 +153,8 @@ def main():
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
-        if links_list is None:
-            links_list=weblink_news_api(options[0])
+        #if links_list is None:
+         #   links_list=weblink_news_api(options[0])
 
         for link in links_list:
             text= web_scraping(link,options[0])
