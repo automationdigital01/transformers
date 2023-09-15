@@ -147,14 +147,12 @@ def main():
                            'Chennai Petroleum Corporation Limited',
                            'Sick AG',
                            'Godrej & Boyce Manufacturing Company Limited',
-                           'Gujarat Infrapipes Private Limited',
-                           'Worthington SRL',
-                           'Gruppo Allied International SRL',
-                           'Officine Ambrogio Melesi & C. S.R.L.',
                            'Sofinter SpA',
-                           'Stopson Italiana S.r.l.',
                            'Chiyoda Corporation',
-                           'Corporación Acciona Infraestructuras, S.L.'                    
+                           'Gulf Asia Contracting LLC',
+                           'Hamad Bin Khaled Contracting',
+                           'Nasser Saeed Al-Hajri And Partners Contracting Company (NSH)',
+                           'Curo Co., Ltd.'               
                         
                            
                            
