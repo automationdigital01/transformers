@@ -145,13 +145,19 @@ def main():
     options=st.multiselect('Select the Suppliers',
                           ['Halliburton Company',
                            'Chennai Petroleum Corporation Limited',
-                           'Godrej & Boyce Manufacturing Company Limited',
-                           'Sundyne International SA',
-                           'McPhy Energy S.A. (ENXTPA:MCPHY)',
-                           'Schmidt + Clemens GmbH + Co. KG',
                            'Sick AG',
-                           'Consolidated Contractors Group S.A.L.',
-                           'FCG Flameproof Control Gears Private Limited'
+                           'Godrej & Boyce Manufacturing Company Limited',
+                           'Gujarat Infrapipes Private Limited',
+                           'Worthington SRL',
+                           'Gruppo Allied International SRL',
+                           'Officine Ambrogio Melesi & C. S.R.L.',
+                           'Sofinter SpA',
+                           'Stopson Italiana S.r.l.',
+                           'Chiyoda Corporation',
+                           'Corporación Acciona Infraestructuras, S.L.'                    
+                        
+                           
+                           
                            ])
     
     if st.button("Submit"):
