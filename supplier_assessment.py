@@ -33,10 +33,12 @@ def web_scraping(URL,company_name):
         title=soup.title.text
         
         full_text=soup.get_text()
-        if pattern.search(full_text):
+        cleaned_text = re.sub(r'\s+', ' ', full_text)  # Replace multiple spaces with a single space
+        cleaned_text = re.sub(r'[^\w\s]', '', cleaned_text)  # Remove special characters
+        if pattern.search(cleaned_text):
             st.write(URL)
             st.write("Title:", title)
-            return full_text
+            return cleaned_text
               
     return None  # Return None if there is no body tag
 
@@ -143,13 +145,15 @@ def main():
     links_list=[]
     st.title("Credit Analysis of Vendors")
     options=st.multiselect('Select the Suppliers',
-                         ['Halliburton Company',
+                          ['Halliburton Company',
                            'Chennai Petroleum Corporation Limited',
                            'Sick AG',
                            'Godrej & Boyce Manufacturing Company Limited',
                            'Sofinter SpA',
                            'Chiyoda Corporation',
-                           'Hamad Bin Khaled Contracting'              
+                           'Hamad Bin Khaled Contracting',
+                           
+                                                                     
                         
                            
                            
@@ -174,7 +178,7 @@ def main():
                 dataframe_data.append({
                         "Supplier Name" : options[0],
                         "News_link": link, 
-                        "News" : summary,
+                        "News Summary" : summary,
                         "Result" : sentiment
                         })
 
