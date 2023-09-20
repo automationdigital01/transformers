@@ -212,7 +212,7 @@ def main():
                     
                     #st.write(text)
                     summary=summarize(text)
-                    #st.write("Summary:",summary)
+                    st.write("Summary:",summary)
                     sentiment=sent_analysis(summary)
                     st.write("Analysis:", sentiment)                
                                 
