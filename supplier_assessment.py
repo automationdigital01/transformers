@@ -185,19 +185,34 @@ def main():
                            'BALFOUR BEATTY PLC',
                            ])
     
+
+    # List of URLs to block
+    blocked_urls = [
+        "https://finance.yahoo.com/news/halliburton-under-scrutiny-7-1m-165827349.html",
+        "https://www.benzinga.com/pressreleases/23/09/34752102/2023-2030-pick-to-light-market-analysis-research-report-and-cagr-at-9-98-percent",
+        "https://www.marketscreener.com/quote/stock/CHIYODA-CORPORATION-6492047/news/Chiyoda-Awarded-an-Engineering-Procurement-and-Construction-Contract-for-a-1-Barrel-per-Day-synth-44463665/",
+        "https://www.marketscreener.com/quote/stock/ATLAS-COPCO-AB-43306890/news/Financial-reporting-days-for-Atlas-Copco-44862651/",
+        "https://www.rivieramm.com/news-content-hub/news-content-hub/long-term-service-agreement-smooths-dry-docking-of-four-lng-carriers-77089",
+        "https://www.balfourbeatty.com/news/balfour-beatty-communities-appoints-chief-compliance-officer/",
+        "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/"
+    ]
+
     if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
         if links_list is None:
             links_list=weblink_news_api(options[0])
+        
+        link_list = [link for link in link_list if link not in blocked_urls]
 
         for link in links_list:
+
             text= web_scraping(link,options[0])
             if text:
                 
                 #st.write(text)
                 summary=summarize(text)
-                st.write("Summary:",summary)
+                #st.write("Summary:",summary)
                 sentiment=sent_analysis(summary)
                 st.write("Analysis:", sentiment)                
                             
