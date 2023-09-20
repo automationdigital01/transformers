@@ -31,11 +31,16 @@ def web_scraping(URL,company_name):
     pattern = re.compile(rf'\b{re.escape(company_name)}\b', re.IGNORECASE)
     if soup.body:
         title=soup.title.text
-        
-        full_text=soup.get_text()
-        cleaned_text = re.sub(r'\s+', ' ', full_text)  # Replace multiple spaces with a single space
-        cleaned_text = re.sub(r'[^\w\s]', '', cleaned_text)  # Remove special characters
-        if pattern.search(cleaned_text):
+        for data in soup(['style', 'script']):# Remove tags
+            data.decompose()
+ 
+        # return data by retrieving the tag content
+        cleaned_text= ' '.join(soup.stripped_strings)
+        #full_text=soup.get_text()
+        #cleaned_text = re.sub(r'\s+', ' ', full_text)  # Replace multiple spaces with a single space
+        #cleaned_text = re.sub(r'[^\w\s]', '', cleaned_text)  # Remove special characters
+        #if pattern.search(cleaned_text):
+        if cleaned_text:
             st.write(URL)
             st.write("Title:", title)
             return cleaned_text
@@ -154,7 +159,6 @@ def main():
                            'Burckhardt Compression',
                            'BALFOUR BEATTY PLC',
                            ])
-    
     
     if st.button("Submit"):
         st.write("Selected Suppliers:", options[0])
