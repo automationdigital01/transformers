@@ -145,10 +145,36 @@ def web_links(supplier):
 
 
 def main():
+    header_container = st.container()
+
+
+    with header_container:
+        col1, col2, col3 = st.columns([1, 3, 1])
+        with col1:
+            st.write("")
+        with col2:
+            st.write("")
+            st.markdown("<span style='color: #1E90FF'>Smart</span> "   " <span style='color: #92D293'>Vendor's Credit Analysis</span>", unsafe_allow_html=True)
+        with col3:
+            st.image("logo/USER LOGin.png", width=70)
+            st.markdown("<span style='color: #1E90FF'>Welcome User !</span>", unsafe_allow_html=True)
+
+    st.markdown("""
+        <style>
+            [data-testid=stSidebar] {
+                background: linear-gradient(to bottom, #1E90FF, #92D293);
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+
+
+    st.sidebar.image("logo/TECHNIP_ENERGIES_LOGO.png", width=100)
+
     dataframe_data=[]
     links_list=[]
-    st.title("Credit Analysis of Vendors")
-    options=st.multiselect('Select the Suppliers',
+    #st.title("Credit Analysis of Vendors")
+    options=st.sidebar.multiselect('Select the Suppliers',
                           ['Halliburton Company',
                            'Sick AG',
                            'Sofinter SpA',
@@ -159,7 +185,7 @@ def main():
                            'BALFOUR BEATTY PLC',
                            ])
     
-    if st.button("Submit"):
+    if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
         if links_list is None:
