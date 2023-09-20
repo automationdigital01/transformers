@@ -203,25 +203,25 @@ def main():
         if links_list is None:
             links_list=weblink_news_api(options[0])
         
-        link_list = [link for link in link_list if link not in blocked_urls]
+        
 
         for link in links_list:
-
-            text= web_scraping(link,options[0])
-            if text:
-                
-                #st.write(text)
-                summary=summarize(text)
-                #st.write("Summary:",summary)
-                sentiment=sent_analysis(summary)
-                st.write("Analysis:", sentiment)                
-                            
-                dataframe_data.append({
-                        "Supplier Name" : options[0],
-                        "News_link": link, 
-                        "News Summary" : summary,
-                        "Result" : sentiment
-                        })
+            if link not in blocked_urls:
+                text= web_scraping(link,options[0])
+                if text:
+                    
+                    #st.write(text)
+                    summary=summarize(text)
+                    #st.write("Summary:",summary)
+                    sentiment=sent_analysis(summary)
+                    st.write("Analysis:", sentiment)                
+                                
+                    dataframe_data.append({
+                            "Supplier Name" : options[0],
+                            "News_link": link, 
+                            "News Summary" : summary,
+                            "Result" : sentiment
+                            })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
