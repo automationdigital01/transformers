@@ -146,12 +146,29 @@ def main():
     st.title("Credit Analysis of Vendors")
     options=st.multiselect('Select the Suppliers',
                           ['Halliburton Company',
-                           'Chennai Petroleum Corporation Limited',
                            'Sick AG',
-                           'Godrej & Boyce Manufacturing Company Limited',
                            'Sofinter SpA',
                            'Chiyoda Corporation',
                            'Hamad Bin Khaled Contracting',
+                           'Nasser Saeed Al-Hajri And Partners Contracting Company (NSH)',
+                           'Curo Co., Ltd.',
+                           'Doosan Mecatec Co., Ltd.',
+                           'GS Entec Corp',
+                           'Jeongwoo Industrial Machine Co. Ltd.',
+                           'Ampo S. Coop',
+                           'Técnicas Reunidas S. A.',
+                           'Atlas Copco Group',
+                           'Burckhardt Compression',
+                           'Tekfen Holding A.S.',
+                           'Tekfen Insaat Ve Tesisat Anonim Sirketi',
+                           'Vatana Phaisal Engineering Co Ltd',
+                           'BALFOUR BEATTY PLC',
+                           'Dixon Group Europe Limited',
+                           'Air Products and Chemicals, Inc.',
+                           'Worthington SRL',
+                           'Gruppo Allied International SRL',
+                           'Officine Ambrogio Melesi & C. S.R.L.',
+                           'Stopson Italiana S.r.l.'
                            
                                                                      
                         
