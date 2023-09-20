@@ -39,8 +39,7 @@ def web_scraping(URL,company_name):
         #full_text=soup.get_text()
         #cleaned_text = re.sub(r'\s+', ' ', full_text)  # Replace multiple spaces with a single space
         #cleaned_text = re.sub(r'[^\w\s]', '', cleaned_text)  # Remove special characters
-        #if pattern.search(cleaned_text):
-        if cleaned_text:
+        if pattern.search(cleaned_text):
             st.write(URL)
             st.write("Title:", title)
             return cleaned_text
