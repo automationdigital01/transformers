@@ -190,6 +190,8 @@ def main():
     blocked_urls = [
         "https://finance.yahoo.com/news/halliburton-under-scrutiny-7-1m-165827349.html",
         "https://finance.yahoo.com/news/halliburton-company-nyse-hal-passed-100756122.html",
+        "https://finance.yahoo.com/news/weakness-burckhardt-compression-holding-ag-130235558.html",
+        "https://www.digitaljournal.com/pr/news/xherald/exclusive-research-report-on-artificial-lift-system-market-size-analytical-overview-growth-factors-demand-and-trends-forecast-to-2029-general-electric-company-man-diesel-turbo-se-ebara-corporation-mitsubishi-heavy-industries-compressor-corporation",
         "https://www.directorstalkinterviews.com/halliburton-company-consensus-buy-rating-and-11.2-upside-potential/4121127874",
         "https://www.benzinga.com/pressreleases/23/09/34752102/2023-2030-pick-to-light-market-analysis-research-report-and-cagr-at-9-98-percent",
         "https://www.marketscreener.com/quote/stock/CHIYODA-CORPORATION-6492047/news/Chiyoda-Awarded-an-Engineering-Procurement-and-Construction-Contract-for-a-1-Barrel-per-Day-synth-44463665/",
