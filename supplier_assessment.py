@@ -177,7 +177,7 @@ def main():
     options=st.sidebar.multiselect('Select the Suppliers',
                           ['Halliburton Company',
                            'Sick AG',
-                           'Sofinter SpA',
+                           'Sofinter S.p.a',
                            'Chiyoda Corporation',
                            'Hamad Bin Khaled Contracting',
                            'Atlas Copco Group',
