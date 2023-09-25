@@ -19,6 +19,34 @@ def generate_google_news_url(query):
     encoded_query = urllib.parse.quote(query)
     return f"https://www.google.com/search?q={encoded_query}&tbm=nws"
 
+#removing ads from text
+def is_ad_element(tag):
+    # To check if the tag has any of the ad-related classes
+    ad_classes = ['ad', 'advertisement', 'sidebar', 'popup']
+    return tag.get('class') and any(cls in tag.get('class') for cls in ad_classes)
+
+def relevant_news(url):
+    headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
+
+    # Remove ad-related elements
+    response = requests.get(url,verify=False, headers=headers)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.content, 'html.parser')
+    if soup.body:
+        ad_elements = soup.find_all(is_ad_element)
+        for element in ad_elements:
+            element.extract()
+
+            # Extract relevant information about the company
+        relevant_info = soup.find_all('p')  # You can customize this to target specific tags
+        # Process and print relevant information
+        for info in relevant_info:
+            text=' '.join(info.get_text())
+            return text
+        
+    return None    
+
+    
 
 ##web scraping usin BeautifulSoup
 def web_scraping(URL,company_name):
@@ -190,8 +218,6 @@ def main():
     blocked_urls = [
         "https://finance.yahoo.com/news/halliburton-under-scrutiny-7-1m-165827349.html",
         "https://finance.yahoo.com/news/halliburton-company-nyse-hal-passed-100756122.html",
-        "https://finance.yahoo.com/news/weakness-burckhardt-compression-holding-ag-130235558.html",
-        "https://www.digitaljournal.com/pr/news/xherald/exclusive-research-report-on-artificial-lift-system-market-size-analytical-overview-growth-factors-demand-and-trends-forecast-to-2029-general-electric-company-man-diesel-turbo-se-ebara-corporation-mitsubishi-heavy-industries-compressor-corporation",
         "https://www.directorstalkinterviews.com/halliburton-company-consensus-buy-rating-and-11.2-upside-potential/4121127874",
         "https://www.benzinga.com/pressreleases/23/09/34752102/2023-2030-pick-to-light-market-analysis-research-report-and-cagr-at-9-98-percent",
         "https://www.marketscreener.com/quote/stock/CHIYODA-CORPORATION-6492047/news/Chiyoda-Awarded-an-Engineering-Procurement-and-Construction-Contract-for-a-1-Barrel-per-Day-synth-44463665/",
@@ -211,7 +237,8 @@ def main():
 
         for link in links_list:
             if link not in blocked_urls:
-                text= web_scraping(link,options[0])
+                #text= web_scraping(link,options[0])
+                text=relevant_news(link)
                 if text:
                     
                     #st.write(text)
