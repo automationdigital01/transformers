@@ -77,10 +77,10 @@ def web_scraping(URL,company_name):
 @st.cache
 def load_T5():
     return pipeline("summarization","pszemraj/long-t5-tglobal-base-16384-book-summary",device=0 if torch.cuda.is_available() else -1,)
-
+summarizer=load_T5()
 ##summarization using long-T5 summarizer, using huggingface
 def summarize(text):
-    summarizer=load_T5()
+    
     #text=full_text
     if text:
         result = summarizer(text)
