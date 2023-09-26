@@ -75,20 +75,17 @@ def web_scraping(URL,company_name):
     return None  # Return None if there is no body tag
 
 
-##summarization using T5 summarizer, using huggingface
+##summarization using long-T5 summarizer, using huggingface
 def summarize(text):
-    tokenizer_summarize = AutoTokenizer.from_pretrained('t5-base')
-    model_summarize = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
+    summarizer = pipeline(
+        "summarization",
+        "pszemraj/long-t5-tglobal-base-16384-book-summary",
+        device=0 if torch.cuda.is_available() else -1,
+    )
     #text=full_text
     if text:
-        inputs = tokenizer_summarize.encode("summarize: " + text,
-        return_tensors='pt',
-        max_length=512,
-        truncation=True)
-        summary_ids = model_summarize.generate(inputs, max_length=150, min_length=80, length_penalty=5., num_beams=2) 
-        summary = tokenizer_summarize.decode(summary_ids[0])
-        summary=summary.replace('<pad>','')
-        summary=summary.replace('</s>','')
+        result = summarizer(text)
+        summary=result[0]["summary_text"]
         return summary
     else:
         return None #if text is none
@@ -237,8 +234,8 @@ def main():
 
         for link in links_list:
             if link not in blocked_urls:
-                text= web_scraping(link,options[0])
-                #text=relevant_news(link)
+                #text= web_scraping(link,options[0])
+                text=relevant_news(link)
                 if text:
                     
                     #st.write(text)
