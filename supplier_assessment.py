@@ -234,8 +234,8 @@ def main():
 
         for link in links_list:
             if link not in blocked_urls:
-                #text= web_scraping(link,options[0])
-                text=relevant_news(link)
+                text= web_scraping(link,options[0])
+                #text=relevant_news(link)
                 if text:
                     
                     #st.write(text)
