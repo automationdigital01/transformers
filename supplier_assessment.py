@@ -74,14 +74,14 @@ def web_scraping(URL,company_name):
               
     return None  # Return None if there is no body tag
 
-
-##summarization using long-T5 summarizer, using huggingface
-def summarize(text):
-    summarizer = pipeline(
+summarizer = pipeline(
         "summarization",
         "pszemraj/long-t5-tglobal-base-16384-book-summary",
         device=0 if torch.cuda.is_available() else -1,
     )
+##summarization using long-T5 summarizer, using huggingface
+def summarize(text):
+    
     #text=full_text
     if text:
         result = summarizer(text)
