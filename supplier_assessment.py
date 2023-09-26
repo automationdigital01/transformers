@@ -74,20 +74,9 @@ def web_scraping(URL,company_name):
               
     return None  # Return None if there is no body tag
 
-@st.cache
-def load_T5():
-    return pipeline("summarization","pszemraj/long-t5-tglobal-base-16384-book-summary",device=0 if torch.cuda.is_available() else -1,)
-summarizer=load_T5()
+
+
 ##summarization using long-T5 summarizer, using huggingface
-def summarize(text):
-    
-    #text=full_text
-    if text:
-        result = summarizer(text)
-        summary=result[0]["summary_text"]
-        return summary
-    else:
-        return None #if text is none
 
 #sentiment analysis using FinBert
 def sent_analysis(summary):
@@ -209,6 +198,11 @@ def main():
                            'BALFOUR BEATTY PLC',
                            ])
     
+    summarizer = pipeline(
+    "summarization",
+    "pszemraj/long-t5-tglobal-base-16384-book-summary",
+    device=0 if torch.cuda.is_available() else -1,
+    )
 
     # List of URLs to block
     blocked_urls = [
@@ -236,9 +230,9 @@ def main():
             text= web_scraping(link,options[0])
                 #text=relevant_news(link)
             if text:
-                    
-                    #st.write(text)
-                summary=summarize(text)
+                #st.write(text)
+                result = summarizer(text)
+                summary=result[0]["summary_text"]
                 st.write("Summary:",summary)
                 sentiment=sent_analysis(summary)
                 st.write("Analysis:", sentiment)                
