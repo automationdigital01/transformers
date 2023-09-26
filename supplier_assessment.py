@@ -198,11 +198,7 @@ def main():
                            'BALFOUR BEATTY PLC',
                            ])
     
-    summarizer = pipeline(
-    "summarization",
-    "pszemraj/long-t5-tglobal-base-16384-book-summary",
-    device=0 if torch.cuda.is_available() else -1,
-    )
+    
 
     # List of URLs to block
     blocked_urls = [
@@ -254,4 +250,9 @@ def main():
                             mime='text/csv',)
 
 if __name__ == "__main__":
+    summarizer = pipeline(
+    "summarization",
+    "pszemraj/long-t5-tglobal-base-16384-book-summary",
+    device=0 if torch.cuda.is_available() else -1,
+    )
     main()
