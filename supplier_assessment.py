@@ -2,6 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 import torch
+from textsum.summarize import Summarizer
 from transformers import AutoTokenizer, AutoModelWithLMHead
 from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import pipeline
@@ -12,7 +13,9 @@ import re
 import urllib3
 
 urllib3.disable_warnings()
-
+summarizer = Summarizer(
+    model_name_or_path="pszemraj/long-t5-tglobal-base-16384-book-summary"
+)
 
 # Function to convert search query to Google News search URL
 def generate_google_news_url(query):
@@ -227,8 +230,7 @@ def main():
                 #text=relevant_news(link)
             if text:
                 #st.write(text)
-                result = summarizer(text)
-                summary=result[0]["summary_text"]
+                summary=summarizer.summarize_string(text)
                 st.write("Summary:",summary)
                 sentiment=sent_analysis(summary)
                 st.write("Analysis:", sentiment)                
@@ -250,9 +252,5 @@ def main():
                             mime='text/csv',)
 
 if __name__ == "__main__":
-    summarizer = pipeline(
-    "summarization",
-    "pszemraj/long-t5-tglobal-base-16384-book-summary",
-    device=0 if torch.cuda.is_available() else -1,
-    )
+    
     main()
