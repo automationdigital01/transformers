@@ -132,7 +132,7 @@ def weblink_news_api(company_name):
 
 # Function to filter out unwanted links
 def filter_links(link):
-    unwanted_domains = ['support.google.com', 'accounts.google.com']
+    unwanted_domains = ['support.google.com', 'accounts.google.com','benzinga.com']
     for domain in unwanted_domains:
         if domain in link:
             return False
@@ -207,13 +207,12 @@ def main():
         "https://finance.yahoo.com/news/halliburton-under-scrutiny-7-1m-165827349.html",
         "https://finance.yahoo.com/news/halliburton-company-nyse-hal-passed-100756122.html",
         "https://www.directorstalkinterviews.com/halliburton-company-consensus-buy-rating-and-11.2-upside-potential/4121127874",
-        "https://www.benzinga.com/pressreleases/23/09/34752102/2023-2030-pick-to-light-market-analysis-research-report-and-cagr-at-9-98-percent",
         "https://www.marketscreener.com/quote/stock/CHIYODA-CORPORATION-6492047/news/Chiyoda-Awarded-an-Engineering-Procurement-and-Construction-Contract-for-a-1-Barrel-per-Day-synth-44463665/",
         "https://www.marketscreener.com/quote/stock/ATLAS-COPCO-AB-43306890/news/Financial-reporting-days-for-Atlas-Copco-44862651/",
         "https://www.rivieramm.com/news-content-hub/news-content-hub/long-term-service-agreement-smooths-dry-docking-of-four-lng-carriers-77089",
         "https://www.balfourbeatty.com/news/balfour-beatty-communities-appoints-chief-compliance-officer/",
-        "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/"
-    ]
+        "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/",
+        ]
 
     ##summarization using long-T5 summarizer, using huggingface
     #summarizer = pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
