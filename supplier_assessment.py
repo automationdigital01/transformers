@@ -77,18 +77,7 @@ def web_scraping(URL,company_name):
 
 
 
-##summarization using long-T5 summarizer, using huggingface
 
-#sentiment analysis using FinBert
-def sent_analysis(summary):
-    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
-    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
-    if summary:
-        nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
-        sentences = summary
-        results = nlp(sentences)
-        results=results[0]["label"]
-        return results  #LABEL_0: neutral; LABEL_1: positive; LABEL_2: negative
 
 #get weblinks using news api
 def weblink_news_api(company_name):
@@ -214,17 +203,20 @@ def main():
         "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/"
     ]
 
-
+    ##summarization using long-T5 summarizer, using huggingface
     summarizer = pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
+
+    #sentiment analysis using FinBert
+    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
+    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
+    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
 
     if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
         if links_list is None:
             links_list=weblink_news_api(options[0])
-        
-        
-
+     
         for link in links_list:
             #if link not in blocked_urls:
             text= web_scraping(link,options[0])
@@ -235,7 +227,8 @@ def main():
                 # Extract the summary text from the result
                 summary = result[0]["summary_text"]
                 st.write("Summary:",summary)
-                sentiment=sent_analysis(summary)
+                results = nlp(summary)
+                sentiment=results[0]["label"]
                 st.write("Analysis:", sentiment)                
                                 
                 dataframe_data.append({
