@@ -76,7 +76,19 @@ def web_scraping(URL,company_name):
     return None  # Return None if there is no body tag
 
 
-
+##summarize using T5
+def summarize(text):
+    tokenizer = AutoTokenizer.from_pretrained('t5-base')
+    model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
+    inputs = tokenizer.encode("summarize: " + text,
+    return_tensors='pt',
+    max_length=512,
+    truncation=True)
+    summary_ids = model.generate(inputs, max_length=100, min_length=50, length_penalty=5., num_beams=2) 
+    summary = tokenizer.decode(summary_ids[0])
+    summary=summary.replace('<pad>','')
+    summary=summary.replace('</s>','')
+    return summary
 
 
 #get weblinks using news api
@@ -204,7 +216,7 @@ def main():
     ]
 
     ##summarization using long-T5 summarizer, using huggingface
-    summarizer = pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
+    #summarizer = pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
 
     #sentiment analysis using FinBert
     finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
@@ -218,25 +230,26 @@ def main():
             links_list=weblink_news_api(options[0])
      
         for link in links_list:
-            #if link not in blocked_urls:
-            text= web_scraping(link,options[0])
-                #text=relevant_news(link)
-            if text:
-                #st.write(text)
-                result = summarizer(text)
-                # Extract the summary text from the result
-                summary = result[0]["summary_text"]
-                st.write("Summary:",summary)
-                results = nlp(summary)
-                sentiment=results[0]["label"]
-                st.write("Analysis:", sentiment)                
-                                
-                dataframe_data.append({
-                        "Supplier Name" : options[0],
-                        "News_link": link, 
-                        "News Summary" : summary,
-                        "Result" : sentiment
-                        })
+            if link not in blocked_urls:
+                text= web_scraping(link,options[0])
+                    #text=relevant_news(link)
+                if text:
+                    #st.write(text)
+                    #result = summarizer(text)
+                    # Extract the summary text from the result
+                    #summary = result[0]["summary_text"]
+                    summary=summarize(text)
+                    st.write("Summary:",summary)
+                    results = nlp(summary)
+                    sentiment=results[0]["label"]
+                    st.write("Analysis:", sentiment)                
+                                    
+                    dataframe_data.append({
+                            "Supplier Name" : options[0],
+                            "News_link": link, 
+                            "News Summary" : summary,
+                            "Result" : sentiment
+                            })
 
         df= pd.DataFrame(dataframe_data)
         st.dataframe(df)
