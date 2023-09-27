@@ -169,7 +169,7 @@ def main():
             st.write("")
         with col2:
             st.write("")
-            st.markdown("<span style='color: #1E90FF'>Vendor's Credit Analysis</span> "   " <span style='color: #92D293'></span>", unsafe_allow_html=True)
+            st.markdown("<span style='color: #1E90FF'>Supplier's News Analysis</span> "   " <span style='color: #92D293'></span>", unsafe_allow_html=True)
         with col3:
             st.image("logo/USER LOGin.png", width=70)
             st.markdown("<span style='color: #1E90FF'>Welcome User !</span>", unsafe_allow_html=True)
@@ -212,6 +212,7 @@ def main():
         "https://www.rivieramm.com/news-content-hub/news-content-hub/long-term-service-agreement-smooths-dry-docking-of-four-lng-carriers-77089",
         "https://www.balfourbeatty.com/news/balfour-beatty-communities-appoints-chief-compliance-officer/",
         "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/",
+        "https://finance.yahoo.com/news/weakness-burckhardt-compression-holding-ag-130235558.html"
         ]
 
     ##summarization using long-T5 summarizer, using huggingface
