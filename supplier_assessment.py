@@ -13,9 +13,7 @@ import re
 import urllib3
 
 urllib3.disable_warnings()
-summarizer = Summarizer(
-    model_name_or_path="pszemraj/long-t5-tglobal-base-16384-book-summary"
-)
+
 
 # Function to convert search query to Google News search URL
 def generate_google_news_url(query):
@@ -216,6 +214,9 @@ def main():
         "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/"
     ]
 
+
+    summarizer = pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
+
     if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
@@ -230,7 +231,9 @@ def main():
                 #text=relevant_news(link)
             if text:
                 #st.write(text)
-                summary=summarizer.summarize_string(text)
+                result = summarizer(text)
+                # Extract the summary text from the result
+                summary = result[0]["summary_text"]
                 st.write("Summary:",summary)
                 sentiment=sent_analysis(summary)
                 st.write("Analysis:", sentiment)                
