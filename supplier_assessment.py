@@ -194,7 +194,7 @@ def main():
                            'Sick AG',
                            'Sofinter S.p.a',
                            'Chiyoda Corporation',
-                           'Hamad Bin Khaled Contracting',
+                           
                            'Atlas Copco Group',
                            'Burckhardt Compression',
                            'BALFOUR BEATTY PLC',
