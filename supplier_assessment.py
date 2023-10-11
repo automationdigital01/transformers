@@ -212,7 +212,9 @@ def main():
         "https://www.rivieramm.com/news-content-hub/news-content-hub/long-term-service-agreement-smooths-dry-docking-of-four-lng-carriers-77089",
         "https://www.balfourbeatty.com/news/balfour-beatty-communities-appoints-chief-compliance-officer/",
         "https://www.balfourbeatty.com/news/balfour-beatty-2022-full-year-results/",
-        "https://finance.yahoo.com/news/weakness-burckhardt-compression-holding-ag-130235558.html"
+        "https://finance.yahoo.com/news/weakness-burckhardt-compression-holding-ag-130235558.html",
+        "https://finance.yahoo.com/news/halliburton-hal-core-labs-join-134300269.html",
+        "https://finance.yahoo.com/news/look-intrinsic-value-halliburton-company-130750774.html"
         ]
 
     ##summarization using long-T5 summarizer, using huggingface
