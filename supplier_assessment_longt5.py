@@ -95,6 +95,13 @@ def summarize(text):
     summary=summary.replace('</s>','')
     return summary
 
+#sentiment analysis using FinBert
+@st.cache_resource
+def finbert():
+    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
+    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
+    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
+    return nlp
 
 #get weblinks using news api
 def weblink_news_api(company_name):
@@ -224,10 +231,7 @@ def main():
 
     
 
-    #sentiment analysis using FinBert
-    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
-    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
-    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
+   
 
     if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
@@ -247,6 +251,7 @@ def main():
                     summary = result[0]["summary_text"]
                     #summary=summarize(text)
                     st.write("Summary:",summary)
+                    nlp=finbert()
                     results = nlp(summary)
                     sentiment=results[0]["label"]
                     st.write("Analysis:", sentiment)                
