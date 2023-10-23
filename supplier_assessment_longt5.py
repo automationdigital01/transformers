@@ -237,10 +237,10 @@ def main():
                     #text=relevant_news(link)
                 if text:
                     #st.write(text)
-                    #result = summarizer(text)
+                    result = summarizer(text)
                     # Extract the summary text from the result
-                    #summary = result[0]["summary_text"]
-                    summary=summarize(text)
+                    summary = result[0]["summary_text"]
+                    #summary=summarize(text)
                     st.write("Summary:",summary)
                     results = nlp(summary)
                     sentiment=results[0]["label"]
