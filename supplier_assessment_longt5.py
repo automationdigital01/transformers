@@ -14,6 +14,11 @@ import urllib3
 
 urllib3.disable_warnings()
 
+##summarization using long-T5 summarizer, using huggingface
+@st.cache_resource
+def longt5():
+    model= pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
+    return model
 
 # Function to convert search query to Google News search URL
 def generate_google_news_url(query):
@@ -217,8 +222,7 @@ def main():
         "https://finance.yahoo.com/news/look-intrinsic-value-halliburton-company-130750774.html"
         ]
 
-    ##summarization using long-T5 summarizer, using huggingface
-    summarizer = pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
+    
 
     #sentiment analysis using FinBert
     finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
@@ -237,6 +241,7 @@ def main():
                     #text=relevant_news(link)
                 if text:
                     #st.write(text)
+                    summarizer=longt5()
                     result = summarizer(text)
                     # Extract the summary text from the result
                     summary = result[0]["summary_text"]
