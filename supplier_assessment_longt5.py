@@ -2,8 +2,6 @@
 import requests
 from bs4 import BeautifulSoup
 import torch
-from textsum.summarize import Summarizer
-from transformers import AutoTokenizer, AutoModelWithLMHead
 from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import pipeline
 import streamlit as st
@@ -14,11 +12,7 @@ import urllib3
 
 urllib3.disable_warnings()
 
-##summarization using long-T5 summarizer, using huggingface
-@st.cache_resource
-def longt5():
-    model= pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
-    return model
+
 
 # Function to convert search query to Google News search URL
 def generate_google_news_url(query):
@@ -80,28 +74,6 @@ def web_scraping(URL,company_name):
               
     return None  # Return None if there is no body tag
 
-
-##summarize using T5
-def summarize(text):
-    tokenizer = AutoTokenizer.from_pretrained('t5-base')
-    model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
-    inputs = tokenizer.encode("summarize: " + text,
-    return_tensors='pt',
-    max_length=512,
-    truncation=True)
-    summary_ids = model.generate(inputs, max_length=100, min_length=50, length_penalty=5., num_beams=2) 
-    summary = tokenizer.decode(summary_ids[0])
-    summary=summary.replace('<pad>','')
-    summary=summary.replace('</s>','')
-    return summary
-
-#sentiment analysis using FinBert
-@st.cache_resource
-def finbert():
-    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
-    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
-    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
-    return nlp
 
 #get weblinks using news api
 def weblink_news_api(company_name):
@@ -229,7 +201,14 @@ def main():
         "https://finance.yahoo.com/news/look-intrinsic-value-halliburton-company-130750774.html"
         ]
 
+    #long-t5 summarizer
+    summarizer= pipeline("summarization", "pszemraj/long-t5-tglobal-base-16384-book-summary")
+
     
+    #loading finbert model for sentiment analysis
+    finbert = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone',num_labels=3)
+    tokenizer_sentiment = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
+    nlp = pipeline("sentiment-analysis", model=finbert, tokenizer=tokenizer_sentiment)
 
    
 
@@ -245,13 +224,11 @@ def main():
                     #text=relevant_news(link)
                 if text:
                     #st.write(text)
-                    summarizer=longt5()
                     result = summarizer(text)
                     # Extract the summary text from the result
                     summary = result[0]["summary_text"]
                     #summary=summarize(text)
                     st.write("Summary:",summary)
-                    nlp=finbert()
                     results = nlp(summary)
                     sentiment=results[0]["label"]
                     st.write("Analysis:", sentiment)                
