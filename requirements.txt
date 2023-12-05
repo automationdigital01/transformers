@@ -5,3 +5,4 @@ bs4
 requests
 torch
 textsum
+st-annotated-text
