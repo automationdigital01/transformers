@@ -29,6 +29,28 @@ def remove_invalid_urls(url_lists):
 def words_in_string(word_list, a_string):
     return set(word_list).intersection(a_string.split())
 
+def extract_urls(query):
+    # Generate the Google News search URL using the function
+    google_news_url = generate_google_news_url(f"{query} news")
+
+    # Fetch the Google News search results page
+    data = requests.get(google_news_url)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    links_list = []
+
+    for links in soup.find_all('a'):
+        link = links.get('href')
+        if link and link.startswith('/url?q=') and filter_links(link):
+            # Extract the actual URL from the Google search results link
+            actual_link = link.split('/url?q=')[1].split('&sa=')[0]
+            links_list.append(actual_link)
+            #print(links_list)
+
+            valid_urls=remove_invalid_urls(links_list)
+
+    return valid_urls
+
+
 #keywords to search
 keywords_to_search=[
 'Hydrocarbons',
@@ -131,6 +153,20 @@ morekeywords_to_search=[
 'Life cycle assessment'
 ]
 
+def desc(valid_urls):
+    for URL in valid_urls:
+        r = requests.get(url=URL,verify=False, headers=headers)
+        soup = BeautifulSoup(r.text, "html.parser")
+        title=soup.title.text
+        text = soup.get_text()
+        if words_in_string(keywords_to_search, text) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, text) or words_in_string(morekeywords_to_search, title) :
+            st.write(URL)
+            st.write('One or more words found!')
+            #descriptions=summary(text)
+            descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+            #st.write("Description:", descriptions)
+    return descriptions
+
 def main():
     header_container = st.container()
     with header_container:
@@ -182,39 +218,13 @@ def main():
     
     if company_name and st.sidebar.button("Submit"):
         # Specify the search query with the company name
-        search_query = f"{company_name} news"  # Modify this as needed
+        links_list= extract_urls(company_name)
+        description=desc(links_list)
+        st.write(description)
 
-        # Generate the Google News search URL using the function
-        google_news_url = generate_google_news_url(search_query)
-
-        # Fetch the Google News search results page
-        data = requests.get(google_news_url)
-        soup = BeautifulSoup(data.text, 'html.parser')
-        links_list = []
-
-        for links in soup.find_all('a'):
-            link = links.get('href')
-            if link and link.startswith('/url?q=') and filter_links(link):
-                # Extract the actual URL from the Google search results link
-                actual_link = link.split('/url?q=')[1].split('&sa=')[0]
-                links_list.append(actual_link)
-        #print(links_list)
-
-        valid_urls=remove_invalid_urls(links_list)
-
-        for URL in valid_urls:
-            
-            r = requests.get(url=URL,verify=False, headers=headers)
-            soup = BeautifulSoup(r.text, "html.parser")
-            title=soup.title.text
-            text = soup.get_text()
-            if words_in_string(keywords_to_search, text) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, text) or words_in_string(morekeywords_to_search, title) :
-                st.write(URL)
-                st.write('One or more words found!')
-                #descriptions=summary(text)
-                descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-                st.write("Description:", descriptions)
-
+        
+        
+        
 if __name__ == "__main__":
     
     main()
