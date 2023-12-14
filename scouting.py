@@ -153,19 +153,6 @@ morekeywords_to_search=[
 'Life cycle assessment'
 ]
 
-def desc(valid_urls):
-    for URL in valid_urls:
-        r = requests.get(url=URL,verify=False, headers=headers)
-        soup = BeautifulSoup(r.text, "html.parser")
-        title=soup.title.text
-        text = soup.get_text()
-        if words_in_string(keywords_to_search, text) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, text) or words_in_string(morekeywords_to_search, title) :
-            st.write(URL)
-            st.write('One or more words found!')
-            #descriptions=summary(text)
-            descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-            #st.write("Description:", descriptions)
-    return descriptions
 
 def main():
     header_container = st.container()
@@ -219,8 +206,18 @@ def main():
     if company_name and st.sidebar.button("Submit"):
         # Specify the search query with the company name
         links_list= extract_urls(company_name)
-        description=desc(links_list)
-        st.write(description)
+        for URL in links_list:
+            r = requests.get(url=URL,verify=False, headers=headers)
+            soup = BeautifulSoup(r.text, "html.parser")
+            if soup:
+                title=soup.find('title')
+                text = soup.get_text()
+                if words_in_string(keywords_to_search, text) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, text) or words_in_string(morekeywords_to_search, title) :
+                    st.write(URL)
+                    st.write('One or more words found!')
+                    #descriptions=summary(text)
+                    descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+                    st.write("Description:", descriptions)
 
         
         
