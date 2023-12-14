@@ -210,6 +210,7 @@ def main():
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
             title=soup.find('title')
+            st.write(title)
             text = soup.get_text()
             if words_in_string(keywords_to_search, text) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, text) or words_in_string(morekeywords_to_search, title) :
                 st.write(URL)
