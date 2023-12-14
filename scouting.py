@@ -27,116 +27,6 @@ def remove_invalid_urls(url_lists):
     return valid_urls
 
 
-
-
-
-
-#keywords to search
-keywords_to_search=[
-    'Hydrocarbons',
-    'Mass balance',
-    'Polymerization',
-    'Pyrolysis',
-    'activity report',    
-    'Methanolysis',
-    'Catalyst',
-    'Ethylene glycol',
-    'Zinc acetate',
-    'Manganese/antimony acetate',
-    'BHET',
-    'DMT',
-    'Recycled content',
-    'Virgin material',
-    'Feedstock',
-    'Resin',
-    'Cracking',
-    'Post-consumer waste',
-    'Circular economy',
-    'Carbon footprint',
-    'Energy efficiency',
-    'Environmental externalities',
-    'Steam cracker',
-    'Chemical recycling',
-    'Mechanical recycling',
-    'Polyester',
-    'PET',
-    'Fair Trade agriculture',
-    'Electricity marketing',
-    'International Sustainability and Carbon Certification (ISCC)',
-    'RedCert',
-    'rEG',
-    'Catalytically active',
-    'Reactor concept',
-    'Hydrocarbons',
-    'Monomers',
-    'Solvent-based dissolution',
-    'Polymers',
-    'Depolymerization',
-    'Repolymerization',
-    'Re-monomerization',
-    'Building block processing plant',
-    'Compounding',
-    'Advanced chemical recycling',
-    'Thermal conversion',
-    'PTA',
-    'Polyolefins',
-    'Pyrolysis',
-    'Methanolysis',
-    'Ethylene glycol',
-    'Zinc acetate',
-    'Manganese/antimony acetate',
-    'Superheated methanol vapor'
-    ]
-
-morekeywords_to_search=[
-    'Recycled content',
-    'Virgin material',
-    'Post-consumer waste',
-    'Steam cracker',
-    'Carbon footprint',
-    'Energy efficiency',
-    'Plastic pollution',
-    'Rectifier',
-    'Dissolver',
-    'Transesterification',
-    'Chemical recycling',
-    'Mechanical recycling',
-    'Circular economy',
-    'Value chain',
-    'Innovation',
-    'Sustainability',
-    'Carbon certification',
-    'Recycling',
-    'Upcycling',
-    'Downcycling',
-    'Plastic recycling',
-    'Hazardous waste recycling',
-    'Circular economy',
-    'Renewable energy',
-    'Carbon footprint',
-    'Zero waste',
-    'Sustainable agriculture',
-    'Eco-friendly',
-    'Green energy',
-    'Biodiversity',
-    'Climate change'
-    'Sustainable development',
-    'Energy efficiency',
-    'Carbon offsetting',
-    'Sustainable transportation',
-    'Greenhouse gas emissions',
-    'Sustainable packaging',
-    'Fair trade',
-    'Organic farming',
-    'Water conservation',
-    'Sustainable forestry',
-    'Life cycle assessment'
-    ]
-
-def words_in_string(word_list, a_string):
-    return set(word_list).intersection(a_string.split())
-
-
 def main():
     header_container = st.container()
     with header_container:
@@ -167,7 +57,7 @@ def main():
     #st.title("Scouting")
 
 
-    company_name=st.sidebar.multiselect('Select the Company',
+    option=st.sidebar.multiselect('Select the Company',
                                    ['Agilyx',
                                     'BASF',
                                     'Brightmark',
@@ -187,13 +77,118 @@ def main():
                                     'textil'
                                     ])
                                 
-    
+    #keywords to search
+    keywords_to_search=[
+        'Hydrocarbons',
+        'Mass balance',
+        'Polymerization',
+        'Pyrolysis',
+        'activity report',    
+        'Methanolysis',
+        'Catalyst',
+        'Ethylene glycol',
+        'Zinc acetate',
+        'Manganese/antimony acetate',
+        'BHET',
+        'DMT',
+        'Recycled content',
+        'Virgin material',
+        'Feedstock',
+        'Resin',
+        'Cracking',
+        'Post-consumer waste',
+        'Circular economy',
+        'Carbon footprint',
+        'Energy efficiency',
+        'Environmental externalities',
+        'Steam cracker',
+        'Chemical recycling',
+        'Mechanical recycling',
+        'Polyester',
+        'PET',
+        'Fair Trade agriculture',
+        'Electricity marketing',
+        'International Sustainability and Carbon Certification (ISCC)',
+        'RedCert',
+        'rEG',
+        'Catalytically active',
+        'Reactor concept',
+        'Hydrocarbons',
+        'Monomers',
+        'Solvent-based dissolution',
+        'Polymers',
+        'Depolymerization',
+        'Repolymerization',
+        'Re-monomerization',
+        'Building block processing plant',
+        'Compounding',
+        'Advanced chemical recycling',
+        'Thermal conversion',
+        'PTA',
+        'Polyolefins',
+        'Pyrolysis',
+        'Methanolysis',
+        'Ethylene glycol',
+        'Zinc acetate',
+        'Manganese/antimony acetate',
+        'Superheated methanol vapor'
+        ]
+
+    morekeywords_to_search=[
+        'Recycled content',
+        'Virgin material',
+        'Post-consumer waste',
+        'Steam cracker',
+        'Carbon footprint',
+        'Energy efficiency',
+        'Plastic pollution',
+        'Rectifier',
+        'Dissolver',
+        'Transesterification',
+        'Chemical recycling',
+        'Mechanical recycling',
+        'Circular economy',
+        'Value chain',
+        'Innovation',
+        'Sustainability',
+        'Carbon certification',
+        'Recycling',
+        'Upcycling',
+        'Downcycling',
+        'Plastic recycling',
+        'Hazardous waste recycling',
+        'Circular economy',
+        'Renewable energy',
+        'Carbon footprint',
+        'Zero waste',
+        'Sustainable agriculture',
+        'Eco-friendly',
+        'Green energy',
+        'Biodiversity',
+        'Climate change'
+        'Sustainable development',
+        'Energy efficiency',
+        'Carbon offsetting',
+        'Sustainable transportation',
+        'Greenhouse gas emissions',
+        'Sustainable packaging',
+        'Fair trade',
+        'Organic farming',
+        'Water conservation',
+        'Sustainable forestry',
+        'Life cycle assessment'
+        ]
+
+    def words_in_string(word_list, a_string):
+        return set(word_list).intersection(a_string.split())
+
     links_list = []
-    if company_name and st.sidebar.button("Submit"):
-        st.write("Selected Company:", company_name)
+
+    if option and st.sidebar.button("Submit"):
+        st.write("Selected Company:", option[0])
         # Specify the search query with the company name
         # Generate the Google News search URL using the function
-        google_news_url = generate_google_news_url(f"{company_name} news")
+        google_news_url = generate_google_news_url(f"{option[0]} news")
 
         # Fetch the Google News search results page
         data = requests.get(google_news_url)
