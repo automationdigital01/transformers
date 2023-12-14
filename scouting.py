@@ -207,7 +207,7 @@ def main():
 
         
         for URL in valid_urls:
-            st.write(URL)
+            #st.write(URL)
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
             #title=soup.find('title')
