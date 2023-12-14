@@ -217,7 +217,8 @@ def main():
                 st.write('One or more words found!')
                 #descriptions=summary(text)
                 descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-                st.write("Description:", descriptions[])
+                if descriptions:
+                    st.write("Description:", descriptions[0])
 
         
         
