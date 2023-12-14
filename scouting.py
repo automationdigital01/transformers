@@ -26,66 +26,13 @@ def remove_invalid_urls(url_lists):
     valid_urls= [url for url in url_lists if urlparse(url).scheme]
     return valid_urls
 
-def words_in_string(word_list, a_string):
-    return set(word_list).intersection(a_string.split())
 
 
 
 
 
-
-def main():
-    header_container = st.container()
-    with header_container:
-        col1, col2, col3 = st.columns([1, 3, 1])
-        with col1:
-            st.write("")
-        with col2:
-            st.write("")
-            st.markdown("<span style='color: #1E90FF'>Scouting</span> "   " <span style='color: #92D293'></span>", unsafe_allow_html=True)
-        with col3:
-            st.image("logo/USER LOGin.png", width=70)
-            st.markdown("<span style='color: #1E90FF'>Welcome User !</span>", unsafe_allow_html=True)
-
-    st.markdown("""
-        <style>
-            [data-testid=stSidebar] {
-                background: linear-gradient(to bottom, #1E90FF, #92D293);
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-
-
-    st.sidebar.image("logo/TECHNIP_ENERGIES_LOGO.png", width=100)
-
-    
-   
-    #st.title("Scouting")
-
-
-    company_name=st.sidebar.multiselect('Select the Company',
-                                   ['Agilyx',
-                                    'BASF',
-                                    'Brightmark',
-                                    'Carbios',
-                                    'Citeo',
-                                    'Eastman',
-                                    'Enerkem',
-                                    'Gr3n',
-                                    'INEOS',
-                                    'Styrolution',
-                                    'LyondellBasell',
-                                    'Plastic Energy',
-                                    'Pyrowave',
-                                    'Recycling Technologies',
-                                    'SABIC',
-                                    'chemical recycling industry',
-                                    'textil'
-                                    ])
-                                
-    #keywords to search
-    keywords_to_search=[
+#keywords to search
+keywords_to_search=[
     'Hydrocarbons',
     'Mass balance',
     'Polymerization',
@@ -141,7 +88,7 @@ def main():
     'Superheated methanol vapor'
     ]
 
-    morekeywords_to_search=[
+morekeywords_to_search=[
     'Recycled content',
     'Virgin material',
     'Post-consumer waste',
@@ -185,6 +132,62 @@ def main():
     'Sustainable forestry',
     'Life cycle assessment'
     ]
+
+def words_in_string(word_list, a_string):
+    return set(word_list).intersection(a_string.split())
+
+
+def main():
+    header_container = st.container()
+    with header_container:
+        col1, col2, col3 = st.columns([1, 3, 1])
+        with col1:
+            st.write("")
+        with col2:
+            st.write("")
+            st.markdown("<span style='color: #1E90FF'>Scouting</span> "   " <span style='color: #92D293'></span>", unsafe_allow_html=True)
+        with col3:
+            st.image("logo/USER LOGin.png", width=70)
+            st.markdown("<span style='color: #1E90FF'>Welcome User !</span>", unsafe_allow_html=True)
+
+    st.markdown("""
+        <style>
+            [data-testid=stSidebar] {
+                background: linear-gradient(to bottom, #1E90FF, #92D293);
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+
+
+    st.sidebar.image("logo/TECHNIP_ENERGIES_LOGO.png", width=100)
+
+    
+   
+    #st.title("Scouting")
+
+
+    company_name=st.sidebar.multiselect('Select the Company',
+                                   ['Agilyx',
+                                    'BASF',
+                                    'Brightmark',
+                                    'Carbios',
+                                    'Citeo',
+                                    'Eastman',
+                                    'Enerkem',
+                                    'Gr3n',
+                                    'INEOS',
+                                    'Styrolution',
+                                    'LyondellBasell',
+                                    'Plastic Energy',
+                                    'Pyrowave',
+                                    'Recycling Technologies',
+                                    'SABIC',
+                                    'chemical recycling industry',
+                                    'textil'
+                                    ])
+                                
+    
     links_list = []
     if company_name and st.sidebar.button("Submit"):
         st.write("Selected Company:", company_name)
