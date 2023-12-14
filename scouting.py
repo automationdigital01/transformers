@@ -159,7 +159,7 @@ def main():
     
     links_list=[]
     #st.title("Credit Analysis of Vendors")
-    options=st.sidebar.multiselect('Select the Company',
+    company_name=st.sidebar.multiselect('Select the Company',
                                    ['Agilyx',
                                     'BASF',
                                     'Brightmark',
@@ -179,8 +179,7 @@ def main():
                                     'textil'
                                     ])
                                 
-    # Get the company name from user input
-    company_name = options[0]
+    
 
     # Specify the search query with the company name
     search_query = f"{company_name} news"  # Modify this as needed
