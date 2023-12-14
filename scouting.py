@@ -214,7 +214,7 @@ def main():
             text = soup.get_text()
             if words_in_string(keywords_to_search, text) or words_in_string(morekeywords_to_search, text):
                 st.write(URL)
-                st.write('One or more words found!')
+                st.write('One or more keywords found!')
                 #descriptions=summary(text)
                 descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
                 if descriptions:
