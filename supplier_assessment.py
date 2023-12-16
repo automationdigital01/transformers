@@ -235,7 +235,7 @@ def main():
             links_list=weblink_news_api(options[0])
         valid_urls=remove_invalid_urls(links_list)
      
-        for link in links_list:
+        for link in valid_urls:
             if link not in blocked_urls:
                 text= web_scraping(link,options[0])
                     #text=relevant_news(link)
