@@ -228,8 +228,8 @@ def main():
     if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
-        if links_list is None:
-            links_list=weblink_news_api(options[0])
+        #if links_list is None:
+         #   links_list=weblink_news_api(options[0])
      
         for link in links_list:
             if link not in blocked_urls:
