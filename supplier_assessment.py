@@ -11,7 +11,7 @@ import pandas as pd
 import urllib.parse
 import re
 import urllib3
-
+from urllib.parse import urlparse
 urllib3.disable_warnings()
 
 
@@ -90,6 +90,9 @@ def summarize(text):
     summary=summary.replace('</s>','')
     return summary
 
+def remove_invalid_urls(url_lists):
+    valid_urls= [url for url in url_lists if urlparse(url).scheme]
+    return valid_urls
 
 #get weblinks using news api
 def weblink_news_api(company_name):
@@ -228,8 +231,9 @@ def main():
     if st.sidebar.button("Submit"):
         st.write("Selected Suppliers:", options[0])
         links_list= web_links(options[0]) #getting web links using beautiful soup and google news.
-        #if links_list is None:
-         #   links_list=weblink_news_api(options[0])
+        if links_list is None:
+            links_list=weblink_news_api(options[0])
+        valid_urls=remove_invalid_urls(links_list)
      
         for link in links_list:
             if link not in blocked_urls:
