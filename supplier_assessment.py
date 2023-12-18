@@ -60,6 +60,7 @@ def web_scraping(URL,company_name):
     pattern = re.compile(rf'\b{re.escape(company_name)}\b', re.IGNORECASE)
     if soup.body:
         title=soup.title.text
+        
         for data in soup(['style', 'script']):# Remove tags
             data.decompose()
  
@@ -244,8 +245,8 @@ def main():
                     #result = summarizer(text)
                     # Extract the summary text from the result
                     #summary = result[0]["summary_text"]
-                    #summary=summarize(text)
-                    summary = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+                    summary=summarize(text)
+                    
                     st.write("Summary:",summary)
                     results = nlp(summary)
                     sentiment=results[0]["label"]
