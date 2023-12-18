@@ -244,7 +244,8 @@ def main():
                     #result = summarizer(text)
                     # Extract the summary text from the result
                     #summary = result[0]["summary_text"]
-                    summary=summarize(text)
+                    #summary=summarize(text)
+                    summary = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
                     st.write("Summary:",summary)
                     results = nlp(summary)
                     sentiment=results[0]["label"]
