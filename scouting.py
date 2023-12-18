@@ -209,17 +209,17 @@ def main():
         for URL in valid_urls:
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
-            title=soup.find('title')
+            title=soup.title.text
            
             text = soup.get_text()
             if words_in_string(keywords_to_search, text) or words_in_string(morekeywords_to_search, text):
                 st.write(URL)
                 st.write('One or more keywords found!')
-                st.write(title)
+                st.write("Title :",title)
                 #descriptions=summary(text)
                 descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
                 if descriptions:
-                    st.write("Description:", descriptions[0])
+                    st.write("Description :", descriptions[0])
 
         
         
