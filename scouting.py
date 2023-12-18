@@ -210,6 +210,7 @@ def main():
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
             title=soup.title.text
+            st.write(f"Total {len(valid_urls)} news article links for {option[0]}.")
            
             text = soup.get_text()
             if words_in_string(keywords_to_search, text) or words_in_string(morekeywords_to_search, text):
