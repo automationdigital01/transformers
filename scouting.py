@@ -204,9 +204,9 @@ def main():
                 #print(links_list)
 
                 valid_urls=remove_invalid_urls(links_list)
-                st.write(f"Total {len(valid_urls)} news article links for {option[0]}.")
+                
 
-        
+        st.write(f"Total {len(valid_urls)} news article links for {option[0]}.")
         for URL in valid_urls:
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
