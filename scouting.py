@@ -32,6 +32,7 @@ def remove_invalid_urls(url_lists):
     return valid_urls
 
 ##summarize using T5
+@st.cache_resource
 def summarize(text):
     tokenizer = AutoTokenizer.from_pretrained('t5-base')
     model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
