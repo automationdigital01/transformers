@@ -32,6 +32,7 @@ def remove_invalid_urls(url_lists):
     valid_urls= [url for url in url_lists if urlparse(url).scheme]
     return valid_urls
 
+@st.cache_resource
 def summarize(text):
     inputs = tokenizer.encode("summarize: " + text,
                               return_tensors='pt',
