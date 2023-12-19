@@ -9,10 +9,10 @@ from urllib.parse import urlparse
 urllib3.disable_warnings()
 headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
 
-import torch
-from transformers import AutoTokenizer, AutoModelWithLMHead
-tokenizer = AutoTokenizer.from_pretrained('t5-base')
-model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
+#import torch
+#from transformers import AutoTokenizer, AutoModelWithLMHead
+#tokenizer = AutoTokenizer.from_pretrained('t5-base')
+#model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
 
 # Function to convert search query to Google News search URL
 def generate_google_news_url(query):
@@ -31,7 +31,7 @@ def filter_links(link):
 def remove_invalid_urls(url_lists):
     valid_urls= [url for url in url_lists if urlparse(url).scheme]
     return valid_urls
-
+'''
 @st.cache_resource
 def summarize(text):
     inputs = tokenizer.encode("summarize: " + text,
@@ -43,6 +43,7 @@ def summarize(text):
     summary=summary.replace('<pad>','')
     summary=summary.replace('</s>','')
     return summary
+    '''
 
 def main():
     header_container = st.container()
