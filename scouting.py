@@ -2,11 +2,17 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
+
 import urllib3, urllib
 from urllib.parse import urlparse
 
 urllib3.disable_warnings()
 headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
+
+import torch
+from transformers import AutoTokenizer, AutoModelWithLMHead
+tokenizer = AutoTokenizer.from_pretrained('t5-base')
+model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
 
 # Function to convert search query to Google News search URL
 def generate_google_news_url(query):
@@ -26,6 +32,16 @@ def remove_invalid_urls(url_lists):
     valid_urls= [url for url in url_lists if urlparse(url).scheme]
     return valid_urls
 
+def summarize(text):
+    inputs = tokenizer.encode("summarize: " + text,
+                              return_tensors='pt',
+                              max_length=512,
+                              truncation=True)
+    summary_ids = model.generate(inputs, max_length=100, min_length=50, length_penalty=5., num_beams=2) 
+    summary = tokenizer.decode(summary_ids[0])
+    summary=summary.replace('<pad>','')
+    summary=summary.replace('</s>','')
+    return summary
 
 def main():
     header_container = st.container()
@@ -210,18 +226,26 @@ def main():
         for URL in valid_urls:
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
-            title=soup.title.text
-            
-           
-            text = soup.get_text()
-            if words_in_string(keywords_to_search, text) or words_in_string(morekeywords_to_search, text):
+            # Identify HTML tags or classes that contain the main article content
+            main_content_tags = soup.find_all('p')  # Adjust based on your HTML structure
+
+            # Extract and print the main article content
+            main_article = "\n".join([tag.get_text() for tag in main_content_tags])
+            title_tag=soup.find('title')
+            if title_tag:
+                title=title_tag.text.strip()                
+         
+            #text = soup.get_text()
+            if words_in_string(keywords_to_search, main_article) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, main_article) or words_in_string(morekeywords_to_search, title) :
                 st.write(URL)
-                st.write('One or more keywords found!')
+                #st.write('One or more keywords found!')
                 st.write("Title :",title)
                 #descriptions=summary(text)
-                descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-                if descriptions:
-                    st.write("Description :", descriptions[0])
+                #descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+                #if descriptions:
+                 #   st.write("Description :", descriptions[0])
+                summary=summarize(main_article)
+                st.write("summary of the text:",summary)
             #else:
              #   st.write("No Keywords matched")
 
@@ -231,4 +255,3 @@ def main():
 if __name__ == "__main__":
     
     main()
-
