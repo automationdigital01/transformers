@@ -242,11 +242,11 @@ def main():
                 #st.write('One or more keywords found!')
                 st.write("Title :",title)
                 #descriptions=summary(text)
-                #descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-                #if descriptions:
-                 #   st.write("Description :", descriptions[0])
-                summary=summarize(main_article)
-                st.write("summary of the text:",summary)
+                descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+                if descriptions:
+                    st.write("Description :", descriptions[0])
+                #summary=summarize(main_article)
+                #st.write("summary of the text:",summary)
             #else:
              #   st.write("No Keywords matched")
 
