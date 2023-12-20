@@ -250,8 +250,8 @@ def main():
                   #  st.write("Description :", descriptions[0])
                 summary=summarize(main_article)
                 st.write("summary of the text:",summary)
-            #else:
-             #   st.write("No Keywords matched")
+        else:
+            st.write("No Keywords matched")
 
         
         
