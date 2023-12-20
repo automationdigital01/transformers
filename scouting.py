@@ -77,7 +77,7 @@ def main():
     #st.title("Scouting")
 
 
-    option=st.sidebar.multiselect('Select the keyword',
+    option=st.sidebar.multiselect('Select the company',
                                    ['Agilyx',
                                     'BASF',
                                     'Brightmark',
@@ -88,13 +88,9 @@ def main():
                                     'Gr3n',
                                     'INEOS',
                                     'Styrolution',
-                                    'LyondellBasell',
-                                    'Plastic Energy',
-                                    'Pyrowave',
-                                    'Recycling Technologies',
-                                    'SABIC',
-                                    'chemical recycling industry',
-                                    'textil'
+                                    'LyondellBasell',                                    
+                                    'Pyrowave',                                    
+                                    'SABIC'                            
                                     ])
                                 
     #keywords to search
@@ -151,7 +147,11 @@ def main():
         'Ethylene glycol',
         'Zinc acetate',
         'Manganese/antimony acetate',
-        'Superheated methanol vapor'
+        'Superheated methanol vapor',
+        'Recycling Technologies',
+        'chemical recycling industry',
+        'textile',
+        'Plastic Energy'
         ]
 
     morekeywords_to_search=[
