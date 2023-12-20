@@ -226,7 +226,7 @@ def main():
                 valid_urls=remove_invalid_urls(links_list)
                 
 
-        st.write(f"Total {len(valid_urls)} news article links for {option[0]}.")
+        #st.write(f"Total {len(valid_urls)} news article links for {option[0]}.")
         for URL in valid_urls:
             r = requests.get(url=URL,verify=False, headers=headers)
             soup = BeautifulSoup(r.text, "html.parser")
@@ -250,8 +250,8 @@ def main():
                   #  st.write("Description :", descriptions[0])
                 summary=summarize(main_article)
                 st.write("summary of the text:",summary)
-            else:
-                st.write("No Keywords matched")
+            #else:
+                #st.write("No Keywords matched")
 
         
         
