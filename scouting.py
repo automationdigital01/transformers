@@ -77,7 +77,7 @@ def main():
     #st.title("Scouting")
 
 
-    option=st.sidebar.multiselect('Select the Company',
+    option=st.sidebar.multiselect('Select the keyword',
                                    ['Agilyx',
                                     'BASF',
                                     'Brightmark',
