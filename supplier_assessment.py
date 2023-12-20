@@ -78,6 +78,7 @@ def web_scraping(URL,company_name):
 
 
 ##summarize using T5
+@st.cache
 def summarize(text):
     tokenizer = AutoTokenizer.from_pretrained('t5-base')
     model = AutoModelWithLMHead.from_pretrained('t5-base', return_dict=True)
