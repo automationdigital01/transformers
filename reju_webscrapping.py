@@ -88,7 +88,8 @@ def main():
                                 
     #keywords to search
     #keywords_to_search=['recycling','textile']
-    keywords_to_search = st.sidebar.text_input('Enter the keyword')   
+    keywords_to_search = st.sidebar.text_input('Enter the keyword')
+    st.write("Keyword given:",keywords_to_search) 
     def words_in_string(word_list, a_string):
         return set(word_list).intersection(a_string.split())
 
