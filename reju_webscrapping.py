@@ -87,14 +87,14 @@ def main():
                                     ])
                                 
     #keywords to search
-    keywords_to_search=['recycling','textile']
-        
+    #keywords_to_search=['recycling','textile']
+    keywords_to_search = st.sidebar.text_input('Enter the keyword')   
     def words_in_string(word_list, a_string):
         return set(word_list).intersection(a_string.split())
 
     links_list = []
 
-    if option and st.sidebar.button("Submit"):
+    if option and keywords_to_search and st.sidebar.button("Submit"):
         st.write("Selected Company:", option[0])
         # Specify the search query with the company name
         # Generate the Google News search URL using the function
@@ -130,7 +130,7 @@ def main():
                 title=title_tag.text.strip()                
          
             #text = soup.get_text()
-            if words_in_string(keywords_to_search, main_article) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, main_article) or words_in_string(morekeywords_to_search, title) :
+            if words_in_string(keywords_to_search, main_article) or words_in_string(keywords_to_search, title):
                 st.write(URL)
                 #st.write('One or more keywords found!')
                 st.write("Title :",title)
