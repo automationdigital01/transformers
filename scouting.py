@@ -2,7 +2,7 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-
+import re
 import urllib3, urllib
 from urllib.parse import urlparse
 
@@ -30,6 +30,37 @@ def filter_links(link):
 def remove_invalid_urls(url_lists):
     valid_urls= [url for url in url_lists if urlparse(url).scheme]
     return valid_urls
+
+def extract_date(url):
+    date_pattern1 = r"\b(January|February|March|April|May|June|July|August|Sept.|October|Nov|December)\s+(\d{1,2}),\s+(\d{4})\b"
+    date_pattern2 = r"\b(\d{1,2})\s+(Jan|February|March|April|May|June|July|August|Sept.|October|Nov|December),\s+(\d{4})\b"
+
+    headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
+    # Example usage:
+    #url = 'https://www.printedelectronicsnow.com/contents/view_breaking-news/2023-12-20/ineos-to-acquire-lyondellbasells-ethylene-oxide-derivatives-business/'
+    r = requests.get(url=url,verify=False, headers=headers)
+    soup = BeautifulSoup(r.text, "html.parser")
+    # Identify HTML tags or classes that contain the main article content
+    p_tags=soup.find_all('p')
+
+    #print(p_tags)
+    for p in p_tags:
+        #print(p.text)
+        match1=re.search(date_pattern1, p.text)
+        match2=re.search(date_pattern2, p.text)
+        if match1:
+            month = match1.group(1)
+            day = match1.group(2)
+            year = match1.group(3)
+            st.write(f"Date found: {month} {day}, {year}")
+        elif match2:
+            month = match2.group(1)
+            day = match2.group(2)
+            year = match2.group(3)
+            st.write(f"Date found: {month} {day}, {year}")
+
+    
+    
 
 ##summarize using T5
 @st.cache
@@ -242,6 +273,7 @@ def main():
             #text = soup.get_text()
             if words_in_string(keywords_to_search, main_article) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, main_article) or words_in_string(morekeywords_to_search, title) :
                 st.write(URL)
+                extract_date(URL)
                 #st.write('One or more keywords found!')
                 st.write("Title :",title)
                 #descriptions=summary(text)
