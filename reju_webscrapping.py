@@ -55,7 +55,7 @@ def main():
             st.write("")
         with col2:
             st.write("")
-            st.markdown("<span style='color: #1E90FF'>Scouting</span> "   " <span style='color: #92D293'></span>", unsafe_allow_html=True)
+            st.markdown("<span style='color: #1E90FF'>Webscrapping</span> "   " <span style='color: #92D293'></span>", unsafe_allow_html=True)
         with col3:
             st.image("logo/USER LOGin.png", width=70)
             st.markdown("<span style='color: #1E90FF'>Welcome User !</span>", unsafe_allow_html=True)
@@ -79,7 +79,6 @@ def main():
 
     option=st.sidebar.multiselect('Select the company',
                                    ['Agilyx',
-                                    'BASF',
                                     'Brightmark',
                                     'Carbios',
                                     'loop industries',
