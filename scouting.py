@@ -276,7 +276,7 @@ def main():
                 extract_date(URL)
                 #st.write('One or more keywords found!')
                 st.write("Title :",title)
-                descriptions=summary(main_article)
+                #descriptions=summary(main_article)
                 descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
                 if descriptions:
                     for desc in descriptions:
