@@ -21,8 +21,8 @@ def generate_google_news_url(query):
     # format the date as required by Google News URL
     date = today.strftime("%m/%d/%Y")
     encoded_query = urllib.parse.quote(query)
-    #return f"https://www.google.com/search?q={query}&tbm=nws"
-    return f"https://www.google.com/search?q={query}&tbm=nws&hl=en&gl=US&as_drrb=b&authuser=0&source=lnt&tbs=cdr%3A1%2Ccd_min%3A{date}%2Ccd_max%3A{date}&tbm=nws"
+    return f"https://www.google.com/search?q={query}&tbm=nws"
+    #return f"https://www.google.com/search?q={query}&tbm=nws&hl=en&gl=US&as_drrb=b&authuser=0&source=lnt&tbs=cdr%3A1%2Ccd_min%3A{date}%2Ccd_max%3A{date}&tbm=nws"
 
 
 
@@ -59,12 +59,12 @@ def extract_date(url):
             month = match1.group(1)
             day = match1.group(2)
             year = match1.group(3)
-            st.write(f"Date found: {month} {day}, {year}")
+            #st.write(f"Date found: {month} {day}, {year}")
         elif match2:
             month = match2.group(1)
             day = match2.group(2)
             year = match2.group(3)
-            st.write(f"Date found: {month} {day}, {year}")
+            #st.write(f"Date found: {month} {day}, {year}")
 
     
     
