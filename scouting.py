@@ -127,7 +127,7 @@ def main():
                                     'INEOS',
                                     'Styrolution',
                                     'LyondellBasell',                                    
-                                    'Pyrowave',                                    
+                                                                      
                                     'SABIC'                            
                                     ])
                                 
