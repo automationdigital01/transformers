@@ -128,21 +128,29 @@ def main():
                                     'Styrolution',
                                     'LyondellBasell',                                    
                                     'Pyrowave',                                    
-                                    'SABIC'                            
+                                    'SABIC',
+                                    'company not in list'                            
                                     ])
-                                
+    #any other company
+    company= st.sidebar.text_input("Enter the company name here:")                            
     #keywords to search
     keyword=st.sidebar.text_input("enter the keyword here:")
+
+    #function to check keywords in article
     def words_in_string(word_list, a_string):
         return set(word_list).intersection(a_string.split())
 
     links_list = []
 
     if option and st.sidebar.button("Submit"):
-        st.write("Selected Company:", option[0])
+        if option[0] in ('company not in list'):
+            st.write("Selected Company:", company)
+            google_news_url = generate_google_news_url(f"{company} news")
+        else:
+            st.write("Selected Company:", option[0])
         # Specify the search query with the company name
         # Generate the Google News search URL using the function
-        google_news_url = generate_google_news_url(f"{option[0]} news")
+            google_news_url = generate_google_news_url(f"{option[0]} news")
 
         # Fetch the Google News search results page
         data = requests.get(google_news_url)
