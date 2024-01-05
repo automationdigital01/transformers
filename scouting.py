@@ -132,7 +132,7 @@ def main():
                                     ])
                                 
     #keywords to search
-    keyword=st.text_input("enter the keyword here:")
+    keyword=st.sidebar.text_input("enter the keyword here:")
     def words_in_string(word_list, a_string):
         return set(word_list).intersection(a_string.split())
 
