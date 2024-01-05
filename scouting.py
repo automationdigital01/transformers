@@ -127,116 +127,12 @@ def main():
                                     'INEOS',
                                     'Styrolution',
                                     'LyondellBasell',                                    
-                                                                      
+                                    'Pyrowave',                                    
                                     'SABIC'                            
                                     ])
                                 
     #keywords to search
-    keywords_to_search=[
-        'Hydrocarbons',
-        'Mass balance',
-        'Polymerization',
-        'Pyrolysis',
-        'activity report',    
-        'Methanolysis',
-        'Catalyst',
-        'Ethylene glycol',
-        'Zinc acetate',
-        'Manganese/antimony acetate',
-        'BHET',
-        'DMT',
-        'Recycled content',
-        'Virgin material',
-        'Feedstock',
-        'Resin',
-        'Cracking',
-        'Post-consumer waste',
-        'Circular economy',
-        'Carbon footprint',
-        'Energy efficiency',
-        'Environmental externalities',
-        'Steam cracker',
-        'Chemical recycling',
-        'Mechanical recycling',
-        'Polyester',
-        'PET',
-        'Fair Trade agriculture',
-        'Electricity marketing',
-        'International Sustainability and Carbon Certification (ISCC)',
-        'RedCert',
-        'rEG',
-        'Catalytically active',
-        'Reactor concept',
-        'Hydrocarbons',
-        'Monomers',
-        'Solvent-based dissolution',
-        'Polymers',
-        'Depolymerization',
-        'Repolymerization',
-        'Re-monomerization',
-        'Building block processing plant',
-        'Compounding',
-        'Advanced chemical recycling',
-        'Thermal conversion',
-        'PTA',
-        'Polyolefins',
-        'Pyrolysis',
-        'Methanolysis',
-        'Ethylene glycol',
-        'Zinc acetate',
-        'Manganese/antimony acetate',
-        'Superheated methanol vapor',
-        'Recycling Technologies',
-        'chemical recycling industry',
-        'textile',
-        'Plastic Energy'
-        ]
-
-    morekeywords_to_search=[
-        'Recycled content',
-        'Virgin material',
-        'Post-consumer waste',
-        'Steam cracker',
-        'Carbon footprint',
-        'Energy efficiency',
-        'Plastic pollution',
-        'Rectifier',
-        'Dissolver',
-        'Transesterification',
-        'Chemical recycling',
-        'Mechanical recycling',
-        'Circular economy',
-        'Value chain',
-        'Innovation',
-        'Sustainability',
-        'Carbon certification',
-        'Recycling',
-        'Upcycling',
-        'Downcycling',
-        'Plastic recycling',
-        'Hazardous waste recycling',
-        'Circular economy',
-        'Renewable energy',
-        'Carbon footprint',
-        'Zero waste',
-        'Sustainable agriculture',
-        'Eco-friendly',
-        'Green energy',
-        'Biodiversity',
-        'Climate change'
-        'Sustainable development',
-        'Energy efficiency',
-        'Carbon offsetting',
-        'Sustainable transportation',
-        'Greenhouse gas emissions',
-        'Sustainable packaging',
-        'Fair trade',
-        'Organic farming',
-        'Water conservation',
-        'Sustainable forestry',
-        'Life cycle assessment'
-        ]
-
+    keyword=st.text_input("enter the keyword here:")
     def words_in_string(word_list, a_string):
         return set(word_list).intersection(a_string.split())
 
@@ -278,7 +174,7 @@ def main():
                 title=title_tag.text.strip()                
          
             #text = soup.get_text()
-            if words_in_string(keywords_to_search, main_article) or words_in_string(keywords_to_search, title) or words_in_string(morekeywords_to_search, main_article) or words_in_string(morekeywords_to_search, title) :
+            if words_in_string(keyword, main_article) or words_in_string(keyword, title):
                 st.write(URL)
                 extract_date(URL)
                 #st.write('One or more keywords found!')
