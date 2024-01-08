@@ -105,7 +105,7 @@ def main():
                 # Extract the actual URL from the Google search results link
                 actual_link = link.split('/url?q=')[1].split('&sa=')[0]
                 links_list.append(actual_link)
-                valid_urls=remove_invalid_urls(links_list)
+        valid_urls=remove_invalid_urls(links_list)
                 
         latest_links.append(valid_urls[:5])
         
