@@ -90,14 +90,14 @@ def main():
     st.write("Peer News-")
     keywords=["Aker Carbon Capture","JGC","Chiyoda ","McDermott","Petrofac","Saipem"]
     for keyword in keywords:
-        print(f"~{keyword}:")
+        st.write(f"~{keyword}:")
 
         search_query = f"{keyword} news"
         #news_url = next(search(search_query, tld="com", num=1, stop=1, pause=2))[0]
         google_news_url = generate_google_news_url(search_query)
         data = requests.get(google_news_url)
         soup = BeautifulSoup(data.text, 'html.parser')
-
+        st.write(soup)
         
         for links in soup.find_all('a'):
             link = links.get('href')
@@ -106,6 +106,7 @@ def main():
                 actual_link = link.split('/url?q=')[1].split('&sa=')[0]
                 links_list.append(actual_link)
                 valid_urls=remove_invalid_urls(links_list)
+                st.write(valid_urls)
                     
                 latest_links.append(valid_urls[:5])
             
