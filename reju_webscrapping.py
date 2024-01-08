@@ -111,7 +111,7 @@ def main():
                 actual_link = link.split('/url?q=')[1].split('&sa=')[0]
                 links_list.append(actual_link)
                 valid_urls=remove_invalid_urls(links_list)
-                st.write(valid_urls)
+                st.write(links_list)
         #latest_links.append(valid_urls[:5])
         
         #print(f"links for {keyword} is :", latest_links)
