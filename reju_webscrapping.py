@@ -115,10 +115,10 @@ def main():
         #latest_links.append(valid_urls[:5])
         
         #print(f"links for {keyword} is :", latest_links)
-        for link in valid_urls[:5]:
-            if link not in blocked_urls:
+        for url in valid_urls[:5]:
+            if url not in blocked_urls:
                 
-                r = requests.get(url=link,verify=False, headers=headers, timeout=10)
+                r = requests.get(url=url,verify=False, headers=headers, timeout=10)
                 soup = BeautifulSoup(r.text, "html.parser")
                 # Identify HTML tags or classes that contain the main article content
                 main_content_tags = soup.find_all('p')  # Adjust based on your HTML structure
@@ -136,9 +136,9 @@ def main():
                 #summary=summarize(main_article)
                 #print("summary of the text:",summary)
                 if title:
-                    st.write(f"- {title}. {clean_desc}. for more information check {link} ")
+                    st.write(f"- {title}. {clean_desc}. for more information check {url} ")
                 else:
-                    st.write(f"-  {clean_desc}. for more information check {link} ")
+                    st.write(f"-  {clean_desc}. for more information check {url} ")
         links_list=[]
             
         
