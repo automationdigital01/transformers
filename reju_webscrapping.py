@@ -97,8 +97,8 @@ def main():
         #news_url = next(search(search_query, tld="com", num=1, stop=1, pause=2))[0]
         google_news_url = generate_google_news_url(search_query)
         st.write(google_news_url)
-        data = requests.get(google_news_url)
-        soup = BeautifulSoup(data.text, 'html.parser',headers=headers)
+        data = requests.get(url=google_news_url,verify=False, headers=headers)
+        soup = BeautifulSoup(data.text, 'html.parser')
         
         
         for links in soup.find_all('a'):
