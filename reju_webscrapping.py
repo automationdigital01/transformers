@@ -136,11 +136,9 @@ def main():
                 #summary=summarize(main_article)
                 #print("summary of the text:",summary)
                 if title:
-                    title=f"- {title}. {clean_desc}. for more information check {link} "
-                    st.write(title)
+                    st.write(f"- {title}. {clean_desc}. for more information check {link} ")
                 else:
-                    desc=f"-  {clean_desc}. for more information check {link} "
-                    st.write(desc)
+                    st.write(f"-  {clean_desc}. for more information check {link} ")
         links_list=[]
             
         
