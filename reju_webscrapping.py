@@ -116,30 +116,30 @@ def main():
         #latest_links.append(valid_urls[:5])
         
         #print(f"links for {keyword} is :", latest_links)
-        for url in valid_urls[:5]:
-            if url not in blocked_urls:
+                for url in valid_urls[:5]:
+                    if url not in blocked_urls:
                 
-                r = requests.get(url=url,verify=False, headers=headers, timeout=10)
-                soup = BeautifulSoup(r.text, "html.parser")
-                # Identify HTML tags or classes that contain the main article content
-                main_content_tags = soup.find_all('p')  # Adjust based on your HTML structure
+                        r = requests.get(url=url,verify=False, headers=headers, timeout=10)
+                        soup = BeautifulSoup(r.text, "html.parser")
+                        # Identify HTML tags or classes that contain the main article content
+                        main_content_tags = soup.find_all('p')  # Adjust based on your HTML structure
 
-                # Extract and print the main article content
-                main_article = "\n".join([tag.get_text() for tag in main_content_tags])
+                        # Extract and print the main article content
+                        main_article = "\n".join([tag.get_text() for tag in main_content_tags])
 
-                title=soup.title.string
-                text = soup.get_text()
-                #print("Title:", title)
-                descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-                for desc in descriptions:
-                    clean_desc=desc.replace('['," ").replace(']'," ")
-                #print(descriptions)
-                #summary=summarize(main_article)
-                #print("summary of the text:",summary)
-                if title:
-                    st.write(f"- {title}. {clean_desc}. for more information check {url} ")
-                else:
-                    st.write(f"-  {clean_desc}. for more information check {url} ")
+                        title=soup.title.string
+                        text = soup.get_text()
+                        #print("Title:", title)
+                        descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+                        for desc in descriptions:
+                            clean_desc=desc.replace('['," ").replace(']'," ")
+                        #print(descriptions)
+                        #summary=summarize(main_article)
+                        #print("summary of the text:",summary)
+                        if title:
+                            st.write(f"- {title}. {clean_desc}. for more information check {url} ")
+                        else:
+                            st.write(f"-  {clean_desc}. for more information check {url} ")
         links_list=[]
             
         
