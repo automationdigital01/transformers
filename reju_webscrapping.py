@@ -96,7 +96,7 @@ def main():
 
     for keyword in keywords:
         st.write(f"~{keyword}:")
-    #company_name="Eastman"
+    
         search_query = f"{keyword} news"
         #news_url = next(search(search_query, tld="com", num=1, stop=1, pause=2))[0]
         google_news_url = generate_google_news_url(search_query)
