@@ -112,7 +112,7 @@ def main():
                 links_list.append(actual_link)
                 valid_urls=remove_invalid_urls(links_list)
                 
-        latest_links.append(valid_urls[:5])
+        #latest_links.append(valid_urls[:5])
         
         #print(f"links for {keyword} is :", latest_links)
         for link in valid_urls[:5]:
