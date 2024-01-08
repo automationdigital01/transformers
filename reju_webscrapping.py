@@ -109,6 +109,7 @@ def main():
             if link and link.startswith('/url?q=') and filter_links(link):
                 # Extract the actual URL from the Google search results link
                 actual_link = link.split('/url?q=')[1].split('&sa=')[0]
+                st.write(actual_link)
                 links_list.append(actual_link)
                 valid_urls=remove_invalid_urls(links_list)
                 st.write(links_list)
