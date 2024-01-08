@@ -85,7 +85,7 @@ def main():
     blocked_urls=["https://carbonherald.com/the-price-of-aker-carbon-capture-stock-jumps-27/","https://www.bannergraphic.com/story/3023439.html"]
     latest_links=[]
     links_list = []
-    valid_urls=[]
+    
   
     
     st.write("Peer News-")
