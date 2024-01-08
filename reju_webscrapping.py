@@ -96,13 +96,14 @@ def main():
         search_query = f"{keyword} news"
         #news_url = next(search(search_query, tld="com", num=1, stop=1, pause=2))[0]
         google_news_url = generate_google_news_url(search_query)
-        st.write(google_news_url)
+        
         data = requests.get(url=google_news_url,verify=False, headers=headers)
         soup = BeautifulSoup(data.text, 'html.parser')
         
         
         for links in soup.find_all('a'):
             link = links.get('href')
+            st.write(link)
             if link and link.startswith('/url?q=') and filter_links(link):
                 # Extract the actual URL from the Google search results link
                 actual_link = link.split('/url?q=')[1].split('&sa=')[0]
