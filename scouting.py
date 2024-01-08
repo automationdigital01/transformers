@@ -115,7 +115,7 @@ def main():
     #st.title("Scouting")
 
 
-    option=st.sidebar.multiselect('Select the company',
+    option=st.sidebar.multiselect('Select the company (if company not in list choose- company not in list)',
                                    ['Agilyx',
                                     'BASF',
                                     'Brightmark',
@@ -132,7 +132,7 @@ def main():
                                     'company not in list'                            
                                     ])
     #any other company
-    company= st.sidebar.text_input("Enter the company name here: (if company not in list choose- company not in list)")                            
+    company= st.sidebar.text_input("Enter the company name here: ")                            
     #keywords to search
     keyword=st.sidebar.text_input("enter the keyword here:")
 
