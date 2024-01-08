@@ -132,7 +132,7 @@ def main():
                                     'company not in list'                            
                                     ])
     #any other company
-    company= st.sidebar.text_input("Enter the company name here:")                            
+    company= st.sidebar.text_input("Enter the company name here: (if company not in list choose "company not in list")")                            
     #keywords to search
     keyword=st.sidebar.text_input("enter the keyword here:")
 
