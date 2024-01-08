@@ -101,12 +101,13 @@ def main():
         soup = BeautifulSoup(data.text, 'html.parser')
         
         
-    for links in soup.find_all('a'):
-        link = links.get('href')
-        if link and link.startswith('/url?q=') and filter_links(link):
-            # Extract the actual URL from the Google search results link
-            actual_link = link.split('/url?q=')[1].split('&sa=')[0]
-            links_list.append(actual_link)
+        for links in soup.find_all('a'):
+            link = links.get('href')
+            if link and link.startswith('/url?q=') and filter_links(link):
+                # Extract the actual URL from the Google search results link
+                actual_link = link.split('/url?q=')[1].split('&sa=')[0]
+                st.write(actual_link)
+                links_list.append(actual_link)
     valid_urls=remove_invalid_urls(links_list)
     st.write(valid_urls)
                     
