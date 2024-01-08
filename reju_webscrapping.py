@@ -88,58 +88,51 @@ def main():
     
     st.write("Peer News-")
     keywords=["Aker Carbon Capture","JGC","Chiyoda ","McDermott","Petrofac","Saipem"]
-                                    
-    
-    
-
-    links_list = []
-
     for keyword in keywords:
-        st.write(f"~{keyword}:")
-    
+        print(f"~{keyword}:")
+
         search_query = f"{keyword} news"
         #news_url = next(search(search_query, tld="com", num=1, stop=1, pause=2))[0]
         google_news_url = generate_google_news_url(search_query)
         data = requests.get(google_news_url)
         soup = BeautifulSoup(data.text, 'html.parser')
 
-    
+        
         for links in soup.find_all('a'):
             link = links.get('href')
             if link and link.startswith('/url?q=') and filter_links(link):
                 # Extract the actual URL from the Google search results link
                 actual_link = link.split('/url?q=')[1].split('&sa=')[0]
-                st.write(actual_link)
                 links_list.append(actual_link)
                 valid_urls=remove_invalid_urls(links_list)
-                st.write(links_list)
-        #latest_links.append(valid_urls[:5])
+                
+        latest_links.append(valid_urls[:5])
         
         #print(f"links for {keyword} is :", latest_links)
-                for url in valid_urls[:5]:
-                    if url not in blocked_urls:
+        for link in valid_urls[:5]:
+            if link not in blocked_urls:
                 
-                        r = requests.get(url=url,verify=False, headers=headers, timeout=10)
-                        soup = BeautifulSoup(r.text, "html.parser")
-                        # Identify HTML tags or classes that contain the main article content
-                        main_content_tags = soup.find_all('p')  # Adjust based on your HTML structure
+                r = requests.get(url=link,verify=False, headers=headers, timeout=10)
+                soup = BeautifulSoup(r.text, "html.parser")
+                # Identify HTML tags or classes that contain the main article content
+                main_content_tags = soup.find_all('p')  # Adjust based on your HTML structure
 
-                        # Extract and print the main article content
-                        main_article = "\n".join([tag.get_text() for tag in main_content_tags])
+                # Extract and print the main article content
+                main_article = "\n".join([tag.get_text() for tag in main_content_tags])
 
-                        title=soup.title.string
-                        text = soup.get_text()
-                        #print("Title:", title)
-                        descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
-                        for desc in descriptions:
-                            clean_desc=desc.replace('['," ").replace(']'," ")
-                        #print(descriptions)
-                        #summary=summarize(main_article)
-                        #print("summary of the text:",summary)
-                        if title:
-                            st.write(f"- {title}. {clean_desc}. for more information check {url} ")
-                        else:
-                            st.write(f"-  {clean_desc}. for more information check {url} ")
+                title=soup.title.string
+                text = soup.get_text()
+                #print("Title:", title)
+                descriptions = [item['content'] for item in soup.select('[name=Description][content], [name=description][content]')]
+                for desc in descriptions:
+                    clean_desc=desc.replace('['," ").replace(']'," ")
+                #print(descriptions)
+                #summary=summarize(main_article)
+                #print("summary of the text:",summary)
+                if title:
+                    st.write(f"- {title}. {clean_desc}. for more information check {link} ")
+                else:
+                    st.write(f"-  {clean_desc}. for more information check {link} ")
         links_list=[]
             
         
