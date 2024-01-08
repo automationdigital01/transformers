@@ -21,7 +21,7 @@ def generate_google_news_url(query):
     # format the date as required by Google News URL
     date = today.strftime("%m/%d/%Y")
     encoded_query = urllib.parse.quote(query)
-    return f"https://www.google.com/search?q={query}&tbm=nws&hl=en&gl=US&as_drrb=b&authuser=0&source=lnt&tbs=cdr%3A1%2Ccd_min%3A{date}%2Ccd_max%3A{date}&tbm=nws"
+    return f"https://www.google.com/search?q={encoded_query}&tbm=nws&hl=en&gl=US&as_drrb=b&authuser=0&source=lnt&tbs=cdr%3A1%2Ccd_min%3A{date}%2Ccd_max%3A{date}&tbm=nws"
 
 
 # Function to filter out unwanted links
