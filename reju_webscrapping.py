@@ -97,7 +97,7 @@ def main():
         google_news_url = generate_google_news_url(search_query)
         data = requests.get(google_news_url)
         soup = BeautifulSoup(data.text, 'html.parser')
-        st.write(soup)
+        
         
         for links in soup.find_all('a'):
             link = links.get('href')
